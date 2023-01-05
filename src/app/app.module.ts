@@ -18,12 +18,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppRoutingModule } from './app-routing.module';
 import { PlanetsComponent } from './planets/planets.component';
+import { HttpClientModule } from '@angular/common/http';
+import { PlanetDetailsComponent } from './planet-details/planet-details.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     DashboardComponent,
     PlanetsComponent,
+    PlanetDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { PlanetsComponent } from './planets/planets.component';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

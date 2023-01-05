@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, tap, shareReplay } from 'rxjs/operators';
 import { StarWarsDataService } from '../star-wars-data.service';
 import { Planet } from '../planet';
 
@@ -18,11 +18,19 @@ export class PlanetsComponent implements OnInit {
       shareReplay()
     );
 
-  planets!: Planet[];
+  planets: Planet[] = [];
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dataService: StarWarsDataService
             ) {}
+
+  // getPlanets() {
+  //   return this.dataService.getPlanets().
+  //   pipe(map(response => ({
+  //     count: response.name,
+  //   }))).
+  //   subscribe(response => console.log(response))
+  // }
 
   getPlanets(): void {
     this.planets = this.dataService.getPlanets();
