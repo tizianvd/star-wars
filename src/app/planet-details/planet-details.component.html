@@ -1,11 +1,13 @@
-<ul>
-     <li><span>Name: {{planet.name}}</span></li>
-     <li><span>Rotation Period: {{planet.rotationPeriod}}</span></li>
-     <li><span>Orbital Period: {{planet.orbitalPeriod}}</span></li>
-     <li><span>Diameter: {{planet.diameter}}</span></li>
-     <li><span>Climate: {{planet.climate}}</span></li>
-     <li><span>Gravity: {{planet.gravity}}</span></li>
-     <li><span>Terrain: {{planet.terrain}}</span></li>
-     <li><span>Surface Water: {{planet.surface_water == 1 ? 'Yes' : 'No'}}</span></li>
-     <li><span>Population: {{planet.population}}</span></li>
-</ul>
+<div *ngIf="planet">
+    <ul>
+        <li><span>Name: {{planet.name}}</span></li>
+        <li><span>Rotation Period: {{planet.rotation_period}}</span></li>
+        <li><span>Orbital Period: {{planet.orbital_period}}</span></li>
+        <li><span>Diameter: {{planet.diameter}}</span></li>
+        <li><span>Climate: {{planet.climate}}</span></li>
+        <li><span>Gravity: {{planet.gravity}}</span></li>
+        <li><span>Terrain: {{planet.terrain}}</span></li>
+        <li><span>Surface Water: {{planet.surface_water == 1 ? 'Yes' : 'No'}}</span></li>
+        <li><span>Population: {{planet.population}}</span></li>
+    </ul>
+</div>

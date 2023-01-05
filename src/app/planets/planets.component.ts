@@ -18,22 +18,14 @@ export class PlanetsComponent implements OnInit {
       shareReplay()
     );
 
-  planets: Planet[] = [];
+  planets: any = [];
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dataService: StarWarsDataService
             ) {}
 
-  // getPlanets() {
-  //   return this.dataService.getPlanets().
-  //   pipe(map(response => ({
-  //     count: response.name,
-  //   }))).
-  //   subscribe(response => console.log(response))
-  // }
-
   getPlanets(): void {
-    this.planets = this.dataService.getPlanets();
+    this.dataService.getPlanets().subscribe(data => this.planets = data);
   }
 
   ngOnInit() {
