@@ -30,8 +30,14 @@ export class StarWarsDataService {
     return this.http.get<any>(this.baseUrl + `planets/${id}/?format=json`)
     .pipe(map(response => ({
       name: response.name,
-      rotationPeriod: response.rotationPeriod,
-      orbitalPeriod: response.orbitalPeriod,
+      rotationPeriod: response.rotation_period,
+      orbitalPeriod: response.orbital_period,
+      diameter: response.diameter,
+      climate: response.climate,
+      gravity: response.gravity,
+      terrain: response.terrain,
+      surface_water: response.surface_water,
+      population: response.population,
     } as Planet)));
   }
 
