@@ -8,5 +8,9 @@ import { PLANETS } from './planets';
 export class StarWarsDataService {
 
   constructor() { }
-  
+
+  getPlanets(): Planet[] {
+    return PLANETS;
+  }
+
 }
