@@ -22,15 +22,19 @@ export class StarWarsDataService {
                 private http: HttpClient,
   ) { }
 
-  private baseUrl = 'https://swapi.dev/api/';
+  private baseUrl = 'https://swapi.dev/api';
   private planetUrl = `${this.baseUrl}/planets/`;
   private peopleUrl = `${this.baseUrl}/people/`;
+
+  getPlanetIDFromURL(planetUrl: string): number {
+    return Number(planetUrl.substring(this.planetUrl.length, planetUrl.length - 1));
+  }
 
   getPlanets(page: number): Observable<Planet[]> {
     
     return this.http.get<ListResponse<Planet>>(this.planetUrl + (page === 0 ? '': `?page=${page}`))
         .pipe(map((planets => planets.results.map(planet => {
-              planet.id = Number(planet.url?.substring(this.planetUrl.length - 1, planet.url?.length - 1));
+              planet.id = this.getPlanetIDFromURL(planet.url);
               return planet;
             })
           )),
@@ -40,6 +44,7 @@ export class StarWarsDataService {
   getPlanet(id: number): Observable<Planet> {
     return this.http.get<any>(this.planetUrl + `${id}/`)
     .pipe(map(response => {
+              response.id = id
               return response
     }))
   }
@@ -47,9 +52,9 @@ export class StarWarsDataService {
   getPeople(page: number): Observable<Person[]> {
     
     return this.http.get<ListResponse<Person>>(this.peopleUrl + (page === 0 ? '': `?page=${page}`))
-        .pipe(map((planets => planets.results.map(planet => {
-              planet.id = Number(planet.url?.substring(this.peopleUrl.length - 1, planet.url?.length - 1));
-              return planet;
+        .pipe(map((planets => planets.results.map(person => {
+              person.id = Number(person.url?.substring(this.peopleUrl.length, person.url?.length - 1));
+              return person;
             })
           )),
         );
@@ -58,6 +63,7 @@ export class StarWarsDataService {
   getPerson(id: number): Observable<Person> {
     return this.http.get<any>(this.peopleUrl + `${id}/`)
     .pipe(map(response => {
+              response.id = id;
               return response
     }))
   }

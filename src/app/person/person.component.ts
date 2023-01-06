@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Person } from '../interfaces';
+import { Person, Planet } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
 
@@ -10,7 +10,8 @@ import { StarWarsDataService } from '../star-wars-data.service';
 })
 export class PersonComponent implements OnInit {
 
-  person?: Person;
+  person!: Person;
+  homeworld?: Planet;
 
   constructor(
     private dataService: StarWarsDataService,
@@ -20,7 +21,17 @@ export class PersonComponent implements OnInit {
   getPerson() : void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.dataService.getPerson(id)
-    .subscribe(person => this.person = person);
+    .subscribe(
+      person => {
+        this.person = person
+        this.getHomeworld();
+      }
+    );
+  }
+
+  getHomeworld() : void {
+    this.dataService.getPlanet(this.dataService.getPlanetIDFromURL(this.person?.homeworld))
+    .subscribe(planet => this.homeworld = planet)
   }
 
 

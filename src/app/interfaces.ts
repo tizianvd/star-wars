@@ -9,6 +9,7 @@ export interface Planet {
     terrain: string,
     surface_water: number,
     population: number,
+    residents: string[],
     url: string;
 };
 
