@@ -1,1 +1,14 @@
-<p>person works!</p>
+<div *ngIf="person">
+    <h1>{{person.name}}</h1>
+    <mat-list>
+        <mat-list-item><span><b>Name: </b>{{person.name}}</span></mat-list-item>
+        <mat-list-item><span><b>Mass: </b>{{person.mass}}</span></mat-list-item>
+        <mat-list-item><span><b>Hair Color: </b>{{person.hair_color}}</span></mat-list-item>
+        <mat-list-item><span><b>Skin Color: </b>{{person.skin_color}}</span></mat-list-item>
+        <mat-list-item><span><b>Eye Color: </b>{{person.eye_color}}</span></mat-list-item>
+        <mat-list-item><span><b>Birth Year: </b>{{person.birth_year}}</span></mat-list-item>
+        <mat-list-item><span><b>Gender: </b>{{person.gender}}</span></mat-list-item>
+        <mat-list-item><span><b>Homeworld: </b>{{person.homeworld}}</span></mat-list-item>
+      
+    </mat-list>
+</div>
