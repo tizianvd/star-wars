@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { StarWarsDataService } from '../star-wars-data.service';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-people',
@@ -18,20 +19,32 @@ export class PeopleComponent {
     );
 
   people: any = [];
+  @ViewChild(MatTable) table?: MatTable<any>;
+
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dataService: StarWarsDataService
             ) {}
 
+  renderRows() {
+    this.table?.renderRows();
+  }
+
   getPeople(): void {
-    for (let i = 0; i < 7; i++)
-      this.dataService.getPlanets(i).subscribe(data => this.people.push(...data));
+    for (let i = 1; i < 8; i++)
+    {
+      this.dataService.getPeople(i).subscribe(data => {
+        this.people.push(...data);
+        this.renderRows();
+        
+     });
+    }
   }
 
   ngOnInit() {
     this.getPeople();
   }
-  
-
+  displayedColumns: string[] = ['id', 'name', 'url'];
   
 }

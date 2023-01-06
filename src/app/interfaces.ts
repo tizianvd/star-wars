@@ -10,7 +10,7 @@ export interface Planet {
     surface_water: number,
     population: number,
     url: string;
-}
+};
 
 export interface Person {
     id: number;
@@ -22,4 +22,5 @@ export interface Person {
     birth_year: string;
     gender: string;
     homeworld: string;
+    url: string;
 }

@@ -4,6 +4,7 @@ import { PlanetsComponent } from './planets/planets.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PlanetDetailsComponent } from './planet-details/planet-details.component';
 import { PeopleComponent } from './people/people.component';
+import { PersonComponent } from './person/person.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'planets', component: PlanetsComponent},
   {path: 'planet_details/:id', component: PlanetDetailsComponent},
   {path: 'people', component: PeopleComponent},
+  {path: 'person/:id', component: PersonComponent},
 
 ]
 

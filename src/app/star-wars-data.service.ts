@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Planet } from './interfaces';
+import { Planet, Person } from './interfaces';
 import { Observable, mergeMap, of, catchError, map, tap, throwError  } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -26,11 +26,9 @@ export class StarWarsDataService {
   private planetUrl = `${this.baseUrl}/planets/`;
   private peopleUrl = `${this.baseUrl}/people/`;
 
-  planets: Planet[] = [];
-
   getPlanets(page: number): Observable<Planet[]> {
     
-    return this.http.get<ListResponse<Planet>>(this.planetUrl + `?page=${page}`)
+    return this.http.get<ListResponse<Planet>>(this.planetUrl + (page === 0 ? '': `?page=${page}`))
         .pipe(map((planets => planets.results.map(planet => {
               planet.id = Number(planet.url?.substring(this.planetUrl.length - 1, planet.url?.length - 1));
               return planet;
@@ -46,14 +44,21 @@ export class StarWarsDataService {
     }))
   }
 
-  getPeople(page: number): Observable<Planet[]> {
+  getPeople(page: number): Observable<Person[]> {
     
-    return this.http.get<ListResponse<Planet>>(this.peopleUrl + `?page=${page}`)
+    return this.http.get<ListResponse<Person>>(this.peopleUrl + (page === 0 ? '': `?page=${page}`))
         .pipe(map((planets => planets.results.map(planet => {
               planet.id = Number(planet.url?.substring(this.peopleUrl.length - 1, planet.url?.length - 1));
               return planet;
             })
           )),
         );
+  }
+
+  getPerson(id: number): Observable<Person> {
+    return this.http.get<any>(this.peopleUrl + `${id}/`)
+    .pipe(map(response => {
+              return response
+    }))
   }
 }
