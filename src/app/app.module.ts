@@ -16,10 +16,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { PlanetsComponent } from './planets/planets.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PlanetDetailsComponent } from './planet-details/planet-details.component';
+import { PeopleComponent } from './people/people.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,7 @@ import { PlanetDetailsComponent } from './planet-details/planet-details.componen
     DashboardComponent,
     PlanetsComponent,
     PlanetDetailsComponent,
+    PeopleComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { PlanetDetailsComponent } from './planet-details/planet-details.componen
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
+    MatTableModule,
     AppRoutingModule,
     HttpClientModule
   ],

@@ -3,6 +3,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PlanetsComponent } from './planets/planets.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PlanetDetailsComponent } from './planet-details/planet-details.component';
+import { PeopleComponent } from './people/people.component';
 
 
 const routes: Routes = [
@@ -10,6 +11,8 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'planets', component: PlanetsComponent},
   {path: 'planet_details/:id', component: PlanetDetailsComponent},
+  {path: 'people', component: PeopleComponent},
+
 ]
 
 @NgModule({

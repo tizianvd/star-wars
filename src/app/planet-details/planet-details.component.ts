@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Planet } from '../planet';
+import { Planet } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
 
 @Component({

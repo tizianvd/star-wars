@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Planet } from './planet';
+import { Planet } from './interfaces';
 import { Observable, mergeMap, of, catchError, map, tap, throwError  } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -24,6 +24,7 @@ export class StarWarsDataService {
 
   private baseUrl = 'https://swapi.dev/api/';
   private planetUrl = `${this.baseUrl}/planets/`;
+  private peopleUrl = `${this.baseUrl}/people/`;
 
   planets: Planet[] = [];
 
@@ -43,5 +44,16 @@ export class StarWarsDataService {
     .pipe(map(response => {
               return response
     }))
+  }
+
+  getPeople(page: number): Observable<Planet[]> {
+    
+    return this.http.get<ListResponse<Planet>>(this.peopleUrl + `?page=${page}`)
+        .pipe(map((planets => planets.results.map(planet => {
+              planet.id = Number(planet.url?.substring(this.peopleUrl.length - 1, planet.url?.length - 1));
+              return planet;
+            })
+          )),
+        );
   }
 }
