@@ -27,9 +27,9 @@ export class StarWarsDataService {
 
   planets: Planet[] = [];
 
-  getPlanets(): Observable<Planet[]> {
+  getPlanets(page: number): Observable<Planet[]> {
     
-    return this.http.get<ListResponse<Planet>>(`${this.planetUrl}?format=json`)
+    return this.http.get<ListResponse<Planet>>(this.planetUrl + `?page=${page}`)
         .pipe(map((planets => planets.results.map(planet => {
               planet.id = Number(planet.url?.substring(this.planetUrl.length - 1, planet.url?.length - 1));
               return planet;
@@ -39,23 +39,9 @@ export class StarWarsDataService {
   }
 
   getPlanet(id: number): Observable<Planet> {
-    return this.http.get<any>(this.baseUrl + `planets/${id}/?format=json`)
+    return this.http.get<any>(this.planetUrl + `${id}/`)
     .pipe(map(response => {
               return response
     }))
   }
-
-  handleError(error: any) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(() => {
-      return errorMessage;
-    });
-  }
-
 }

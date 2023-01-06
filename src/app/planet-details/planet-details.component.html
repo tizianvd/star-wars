@@ -1,13 +1,14 @@
 <div *ngIf="planet">
-    <ul>
-        <li><span>Name: {{planet.name}}</span></li>
-        <li><span>Rotation Period: {{planet.rotation_period}}</span></li>
-        <li><span>Orbital Period: {{planet.orbital_period}}</span></li>
-        <li><span>Diameter: {{planet.diameter}}</span></li>
-        <li><span>Climate: {{planet.climate}}</span></li>
-        <li><span>Gravity: {{planet.gravity}}</span></li>
-        <li><span>Terrain: {{planet.terrain}}</span></li>
-        <li><span>Surface Water: {{planet.surface_water == 1 ? 'Yes' : 'No'}}</span></li>
-        <li><span>Population: {{planet.population}}</span></li>
-    </ul>
+    <h1>{{planet.name}}</h1>
+    <mat-list>
+        <mat-list-item><span><b>Name: </b>{{planet.name}}</span></mat-list-item>
+        <mat-list-item><span><b>Rotation Period:  </b>{{planet.rotation_period}}</span></mat-list-item>
+        <mat-list-item><span><b>Orbital Period:  </b>{{planet.orbital_period}}</span></mat-list-item>
+        <mat-list-item><span><b>Diameter:  </b>{{planet.diameter}}</span></mat-list-item>
+        <mat-list-item><span><b>Climate:  </b>{{planet.climate}}</span></mat-list-item>
+        <mat-list-item><span><b>Gravity:  </b>{{planet.gravity}}</span></mat-list-item>
+        <mat-list-item><span><b>Terrain:  </b>{{planet.terrain}}</span></mat-list-item>
+        <mat-list-item><span><b>Surface Water:  </b>{{planet.surface_water == 1 ? 'Yes' : 'No'}}</span></mat-list-item>
+        <mat-list-item><span><b>Population:  </b>{{planet.population}}</span></mat-list-item>
+    </mat-list>
 </div>

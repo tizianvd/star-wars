@@ -25,7 +25,8 @@ export class PlanetsComponent implements OnInit {
             ) {}
 
   getPlanets(): void {
-    this.dataService.getPlanets().subscribe(data => this.planets = data);
+    for (let i = 0; i < 7; i++)
+      this.dataService.getPlanets(i).subscribe(data => this.planets.push(...data));
   }
 
   ngOnInit() {
