@@ -46,7 +46,8 @@ export class PersonComponent implements OnInit {
   }
 
   getFilms(): void {
-    this.dataService.getAllRecords("films").subscribe(data => {
+    this.dataService.getAllRecords("films").subscribe({
+      next: data => {
       data.forEach(element => {
         if (this.person.films.includes(element.url)){
           this.renderRows();
@@ -56,11 +57,11 @@ export class PersonComponent implements OnInit {
         }
       });
       
-    }, null, 
-    () => {
+    }, 
+    complete: () => {
       this.loaded = true;
       }
-    );
+    });
   }
 
 
