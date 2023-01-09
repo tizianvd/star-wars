@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Planet, Person } from './interfaces';
+import { Planet, Person, Film } from './interfaces';
 import { Observable, mergeMap, of, catchError, map, tap, throwError  } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -25,6 +25,7 @@ export class StarWarsDataService {
   private baseUrl = 'https://swapi.dev/api';
   private planetUrl = `${this.baseUrl}/planets/`;
   private peopleUrl = `${this.baseUrl}/people/`;
+  private filmUrl = `${this.baseUrl}/films/`;
 
   getPlanetIDFromURL(planetUrl: string): number {
     return Number(planetUrl.substring(this.planetUrl.length, planetUrl.length - 1));
@@ -52,7 +53,7 @@ export class StarWarsDataService {
   getPeople(page: number): Observable<Person[]> {
     
     return this.http.get<ListResponse<Person>>(this.peopleUrl + (page === 0 ? '': `?page=${page}`))
-        .pipe(map((planets => planets.results.map(person => {
+        .pipe(map((people => people.results.map(person => {
               person.id = Number(person.url?.substring(this.peopleUrl.length, person.url?.length - 1));
               return person;
             })
@@ -66,5 +67,16 @@ export class StarWarsDataService {
               response.id = id;
               return response
     }))
+  }
+
+  getFilms(): Observable<Film[]> {
+    
+    return this.http.get<ListResponse<Film>>(this.filmUrl)
+        .pipe(map((films => films.results.map(film => {
+              film.id = Number(film.url?.substring(this.filmUrl.length, film.url?.length - 1));
+              return film;
+            })
+          )),
+        );
   }
 }

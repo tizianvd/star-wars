@@ -25,3 +25,13 @@ export interface Person {
     homeworld: string;
     url: string;
 }
+
+export interface Film {
+    id: number;
+    episode_id: number;
+    opening_crawl: string;
+    director: string;
+    producer: string;
+    release_date: string;
+    url: string;
+}
