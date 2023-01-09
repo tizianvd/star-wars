@@ -23,6 +23,7 @@ export interface Person {
     birth_year: string;
     gender: string;
     homeworld: string;
+    films: string[];
     url: string;
 }
 
