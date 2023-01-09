@@ -57,11 +57,11 @@ export class PersonComponent implements OnInit {
         }
       });
       
-    }, 
-    complete: () => {
-      this.loaded = true;
-      }
-    });
+      }, 
+      complete: () => {
+        this.loaded = true;
+        }
+      });
   }
 
 

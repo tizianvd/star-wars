@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Planet, Person } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
 import { MatTable } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-planet-details',
@@ -18,6 +19,9 @@ export class PlanetDetailsComponent implements OnInit {
 
   planet!: Planet;
   residents: Person[] = [];
+  loaded: boolean = false;
+  currentPage: number = 0;
+  paginatorEnabled: boolean = false;
   @ViewChild(MatTable) table?: MatTable<any>;
 
   getPlanet() : void {
@@ -34,18 +38,25 @@ export class PlanetDetailsComponent implements OnInit {
   }
 
   getResidents(): void {
-    for (let i = 1; i < 8; i++)
-    {
-      this.dataService.getPage("people", i).subscribe(data => {
-        data.forEach(element => {
-          if (this.dataService.getIDFromURL("planets", element.homeworld) == this.planet.id){
-            this.renderRows();
-            this.residents.push(element);
-          }
-        });
-        
-     });
-    }
+    this.dataService.getAllRecords("people").subscribe({
+      next: data => {
+      data.forEach(element => {
+        if (this.dataService.getIDFromURL("planets", element.homeworld) == this.planet.id){
+          this.renderRows();
+          this.residents.push(element);
+        }
+      });
+      
+      },
+     
+      complete: () => {
+        this.loaded = true;
+        }
+    });
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.currentPage = event.pageIndex;
   }
 
   ngOnInit(): void {

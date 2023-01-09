@@ -1,4 +1,4 @@
-<div *ngIf="planet">
+<div *ngIf="loaded;else spinner;">
     <h1>{{planet.name}}</h1>
     <mat-list>
         <mat-list-item><span><b>Name: </b>{{planet.name}}</span></mat-list-item>
@@ -12,7 +12,7 @@
         <mat-list-item><span><b>Population:  </b>{{planet.population}}</span></mat-list-item>
     </mat-list>
     <h3>Residents</h3>
-    <table mat-table [dataSource]="residents" class="mat-elevation-z8">
+    <table mat-table [dataSource]="residents.slice(0 + currentPage * 10, 10 + currentPage * 10)" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -28,4 +28,11 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [length]="residents.length"
+        [pageSize]="10"
+        [disabled]="!paginatorEnabled"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page">
+    </mat-paginator>
 </div>
+<ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>

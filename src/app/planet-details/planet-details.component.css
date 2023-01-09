@@ -5,3 +5,7 @@ h1, h3 {
 a, a:visited {
 color: LinkText;
 }
+
+.spinner {
+  margin: auto;
+}
