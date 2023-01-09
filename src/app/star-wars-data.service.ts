@@ -51,8 +51,8 @@ export class StarWarsDataService {
     }))
   }
 
-  getPlanetCount(): Observable<number> {
-    return this.http.get<ListResponse<Person>>(this.planetUrl).pipe(
+  getRecordCount(field: string): Observable<number> {
+    return this.http.get<ListResponse<Person>>(this.baseUrl + field).pipe(
       map((response) => {return response.count})
     );
   }

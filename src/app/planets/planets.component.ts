@@ -36,7 +36,7 @@ export class PlanetsComponent implements OnInit {
   }
 
   getTotalPlanetCount() {
-    this.dataService.getPlanetCount().subscribe(count => this.totalPlanetCount = count);
+    this.dataService.getRecordCount("planets").subscribe(count => this.totalPlanetCount = count);
   }
 
   handlePageEvent(event: PageEvent) {
