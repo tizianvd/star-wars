@@ -20,7 +20,7 @@ export class PersonComponent implements OnInit {
 
   getPerson() : void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.dataService.getPerson(id)
+    this.dataService.getRecord("people", id)
     .subscribe(
       person => {
         this.person = person

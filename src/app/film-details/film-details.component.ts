@@ -27,7 +27,7 @@ export class FilmDetailsComponent implements OnInit {
 
   getFilm() : void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.dataService.getFilm(id)
+    this.dataService.getRecord("films", id)
     .subscribe(
       film => {
         this.film = film
@@ -41,7 +41,7 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   getCharacters(): void {
-    this.dataService.getAllPeople().subscribe(data => {
+    this.dataService.getAllRecords("people").subscribe(data => {
       data.forEach(element => {
         if (this.film.characters.includes(element.url)){
           this.renderRows();

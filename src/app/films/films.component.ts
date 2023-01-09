@@ -21,7 +21,7 @@ export class FilmsComponent implements OnInit {
   }
 
   getFilms(): void {
-    this.dataService.getFilms().subscribe(
+    this.dataService.getPage("films", 1).subscribe(
       data => {this.films = data
       this.films.sort((a: Film, b: Film) => a.id - b.id)
 

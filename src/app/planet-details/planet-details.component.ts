@@ -36,7 +36,7 @@ export class PlanetDetailsComponent implements OnInit {
   getResidents(): void {
     for (let i = 1; i < 8; i++)
     {
-      this.dataService.getPeople(i).subscribe(data => {
+      this.dataService.getPage("people", i).subscribe(data => {
         data.forEach(element => {
           if (this.dataService.getIDFromURL("planets", element.homeworld) == this.planet.id){
             this.renderRows();

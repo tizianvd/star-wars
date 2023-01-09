@@ -32,10 +32,10 @@ export class StarWarsDataService {
   }
 
   
-  getPage(field: string, page: number): Observable<Planet[]> {
-    return this.http.get<ListResponse<Planet>>(this.baseUrl + field + (page === 0 ? '/': `/?page=${page}`))
+  getPage(field: string, page: number): Observable<any[]> {
+    return this.http.get<ListResponse<any>>(this.baseUrl + field + (page === 0 ? '/': `/?page=${page}`))
       .pipe(map((data => data.results.map(record => {
-            record.id = this.getIDFromURL("planets", record.url);
+            record.id = this.getIDFromURL(field, record.url);
             console.log(record.url);
             return record;
           })
@@ -43,7 +43,7 @@ export class StarWarsDataService {
       );
   }
 
-  getRecord(field: string, id: number): Observable<Planet> {
+  getRecord(field: string, id: number): Observable<any> {
     return this.http.get<any>(this.baseUrl + field + `/${id}/`)
     .pipe(map(response => {
               response.id = id
@@ -57,61 +57,16 @@ export class StarWarsDataService {
     );
   }
 
-  getPeople(page: number): Observable<Person[]> {
+  getAllRecords(field: string): Observable<any[]> {
     
-    return this.http.get<ListResponse<Person>>(this.peopleUrl + (page === 0 ? '': `?page=${page}`))
-        .pipe(map((people => people.results.map(person => {
-              person.id = Number(person.url?.substring(this.peopleUrl.length, person.url?.length - 1));
-              return person;
-            })
-          )),
-        );
-  }
-
-  getAllPeople(): Observable<Person[]> {
-    
-    return this.http.get<ListResponse<Person>>(this.peopleUrl + "?page=1")
+    return this.http.get<ListResponse<any>>(this.baseUrl + field + "/?page=1")
         .pipe(
-              expand(response => response.next ? this.http.get<ListResponse<Person>>(response.next) : EMPTY),
-              map((people => people.results.map(person => {
-              person.id = Number(person.url?.substring(this.peopleUrl.length, person.url?.length - 1));
-              return person;
+              expand(response => response.next ? this.http.get<ListResponse<any>>(response.next) : EMPTY),
+              map((data => data.results.map(record => {
+              record.id = this.getIDFromURL(field, record.url)
+              return record;
             })
           )),
         );
-  }
-
-
-  getPerson(id: number): Observable<Person> {
-    return this.http.get<any>(this.peopleUrl + `${id}/`)
-    .pipe(map(response => {
-              response.id = id;
-              return response
-    }))
-  }
-
-  getPeopleCount(): Observable<number> {
-    return this.http.get<ListResponse<Person>>(this.peopleUrl).pipe(
-      map((response) => {return response.count})
-    );
-  }
-
-  getFilms(): Observable<Film[]> {
-    
-    return this.http.get<ListResponse<Film>>(this.filmUrl)
-        .pipe(map((films => films.results.map(film => {
-              film.id = Number(film.url?.substring(this.filmUrl.length, film.url?.length - 1));
-              return film;
-            })
-          )),
-        );
-  }
-
-  getFilm(id: number): Observable<Film> {
-    return this.http.get<any>(this.filmUrl + `${id}/`)
-    .pipe(map(response => {
-              response.id = id;
-              return response
-    }))
   }
 }

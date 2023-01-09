@@ -26,7 +26,7 @@ export class PeopleComponent {
   }
 
   getPeople(page: number): void {
-    this.dataService.getPeople(page).subscribe(data => {
+    this.dataService.getPage("people", page).subscribe(data => {
       this.people = data;
       this.people.sort((a: Person, b: Person) => a.id - b.id)
       this.renderRows();
@@ -37,7 +37,7 @@ export class PeopleComponent {
   }
 
   getTotalPeopleCount() {
-    this.dataService.getPeopleCount().subscribe(count => this.totalPeopleCount = count);
+    this.dataService.getRecordCount("people").subscribe(count => this.totalPeopleCount = count);
   }
 
   handlePageEvent(event: PageEvent) {
