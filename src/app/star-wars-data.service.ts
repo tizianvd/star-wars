@@ -33,12 +33,12 @@ export class StarWarsDataService {
   getPlanets(page: number): Observable<Planet[]> {
     
     return this.http.get<ListResponse<Planet>>(this.planetUrl + (page === 0 ? '': `?page=${page}`))
-        .pipe(map((planets => planets.results.map(planet => {
-              planet.id = this.getPlanetIDFromURL(planet.url);
-              return planet;
-            })
-          )),
-        );
+      .pipe(map((planets => planets.results.map(planet => {
+            planet.id = this.getPlanetIDFromURL(planet.url);
+            return planet;
+          })
+        ))
+      );
   }
 
   getPlanet(id: number): Observable<Planet> {

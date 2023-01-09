@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { StarWarsDataService } from '../star-wars-data.service';
 import { MatTable } from '@angular/material/table';
+import { Person } from '../interfaces';
 
 @Component({
   selector: 'app-people',
@@ -36,6 +37,7 @@ export class PeopleComponent {
     {
       this.dataService.getPeople(i).subscribe(data => {
         this.people.push(...data);
+        this.people.sort((a: Person, b: Person) => a.id - b.id)
         this.renderRows();
         
      });

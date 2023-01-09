@@ -32,9 +32,11 @@ export class PlanetsComponent implements OnInit {
   }
 
   getPlanets(): void {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 1; i < 7; i++) {
       this.dataService.getPlanets(i).subscribe(
         data => {this.planets.push(...data)
+        this.planets.sort((a: Planet, b: Planet) => a.id - b.id)
+
         this.renderRows();
       });
     }
