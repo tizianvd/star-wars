@@ -26,7 +26,7 @@ export class PlanetsComponent implements OnInit {
   }
 
   getPlanets(page: number): void {
-    this.dataService.getPlanets(page).subscribe(
+    this.dataService.getPage("planets", page).subscribe(
       data => {this.planets = data
       this.planets.sort((a: Planet, b: Planet) => a.id - b.id)
       this.renderRows();

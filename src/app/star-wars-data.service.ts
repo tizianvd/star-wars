@@ -22,28 +22,29 @@ export class StarWarsDataService {
                 private http: HttpClient,
   ) { }
 
-  private baseUrl = 'https://swapi.dev/api';
+  private baseUrl = 'https://swapi.dev/api/';
   private planetUrl = `${this.baseUrl}/planets/`;
   private peopleUrl = `${this.baseUrl}/people/`;
   private filmUrl = `${this.baseUrl}/films/`;
 
-  getPlanetIDFromURL(planetUrl: string): number {
-    return Number(planetUrl.substring(this.planetUrl.length, planetUrl.length - 1));
+  getIDFromURL(field: string, url: string): number {
+    return Number(url.substring((this.baseUrl + field + "/").length, url.length - 1));
   }
 
-  getPlanets(page: number): Observable<Planet[]> {
-    
-    return this.http.get<ListResponse<Planet>>(this.planetUrl + (page === 0 ? '': `?page=${page}`))
-      .pipe(map((planets => planets.results.map(planet => {
-            planet.id = this.getPlanetIDFromURL(planet.url);
-            return planet;
+  
+  getPage(field: string, page: number): Observable<Planet[]> {
+    return this.http.get<ListResponse<Planet>>(this.baseUrl + field + (page === 0 ? '/': `/?page=${page}`))
+      .pipe(map((data => data.results.map(record => {
+            record.id = this.getIDFromURL("planets", record.url);
+            console.log(record.url);
+            return record;
           })
         ))
       );
   }
 
-  getPlanet(id: number): Observable<Planet> {
-    return this.http.get<any>(this.planetUrl + `${id}/`)
+  getRecord(field: string, id: number): Observable<Planet> {
+    return this.http.get<any>(this.baseUrl + field + `/${id}/`)
     .pipe(map(response => {
               response.id = id
               return response

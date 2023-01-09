@@ -30,7 +30,7 @@ export class PersonComponent implements OnInit {
   }
 
   getHomeworld() : void {
-    this.dataService.getPlanet(this.dataService.getPlanetIDFromURL(this.person?.homeworld))
+    this.dataService.getRecord("planets", this.dataService.getIDFromURL("planets", this.person?.homeworld))
     .subscribe(planet => this.homeworld = planet)
   }
 

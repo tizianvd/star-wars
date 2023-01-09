@@ -22,7 +22,7 @@ export class PlanetDetailsComponent implements OnInit {
 
   getPlanet() : void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.dataService.getPlanet(id)
+    this.dataService.getRecord("planets", id)
     .subscribe(
       planet => {this.planet = planet
       this.getResidents()
@@ -38,7 +38,7 @@ export class PlanetDetailsComponent implements OnInit {
     {
       this.dataService.getPeople(i).subscribe(data => {
         data.forEach(element => {
-          if (this.dataService.getPlanetIDFromURL(element.homeworld) == this.planet.id){
+          if (this.dataService.getIDFromURL("planets", element.homeworld) == this.planet.id){
             this.renderRows();
             this.residents.push(element);
           }
