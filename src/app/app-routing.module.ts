@@ -7,6 +7,7 @@ import { PeopleComponent } from './people/people.component';
 import { PersonComponent } from './person/person.component';
 import { FilmsComponent } from './films/films.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
+import { SpeciesComponent } from './species/species.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'person/:id', component: PersonComponent},
   {path: 'films', component: FilmsComponent},
   {path: 'film-details/:id', component: FilmDetailsComponent},
+  {path: 'species', component: SpeciesComponent},
 
 ]
 

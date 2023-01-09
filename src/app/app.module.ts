@@ -27,6 +27,7 @@ import { PeopleComponent } from './people/people.component';
 import { PersonComponent } from './person/person.component';
 import { FilmsComponent } from './films/films.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
+import { SpeciesComponent } from './species/species.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { FilmDetailsComponent } from './film-details/film-details.component';
     PersonComponent,
     FilmsComponent,
     FilmDetailsComponent,
+    SpeciesComponent,
   ],
   imports: [
     BrowserModule,
