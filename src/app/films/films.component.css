@@ -5,3 +5,8 @@ table {
   a, a:visited {
     color: LinkText;
   }
+
+  mat-spinner {
+    margin: auto;
+    margin-top: 150px;
+  }
