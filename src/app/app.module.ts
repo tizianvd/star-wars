@@ -28,6 +28,7 @@ import { PersonComponent } from './person/person.component';
 import { FilmsComponent } from './films/films.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { SpeciesComponent } from './species/species.component';
+import { SpeciesDetailsComponent } from './species-details/species-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { SpeciesComponent } from './species/species.component';
     FilmsComponent,
     FilmDetailsComponent,
     SpeciesComponent,
+    SpeciesDetailsComponent,
   ],
   imports: [
     BrowserModule,
