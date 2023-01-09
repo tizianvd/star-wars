@@ -13,7 +13,7 @@
     </ng-container>
     <ng-container matColumnDef="url">
       <th mat-header-cell *matHeaderCellDef> Details </th>
-      <td mat-cell *matCellDef="let element"><a routerLink="/film_details/{{element.id}}"><mat-icon aria-hidden="false" aria-label="open url icon" fontIcon="link"></mat-icon></a> </td>
+      <td mat-cell *matCellDef="let element"><a routerLink="/film-details/{{element.id}}"><mat-icon aria-hidden="false" aria-label="open url icon" fontIcon="link"></mat-icon></a> </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

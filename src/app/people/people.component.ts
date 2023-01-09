@@ -10,6 +10,7 @@ import { Person } from '../interfaces';
 })
 export class PeopleComponent {
   people: any = [];
+  loaded: boolean = false;
   @ViewChild(MatTable) table?: MatTable<any>;
 
 
@@ -28,6 +29,7 @@ export class PeopleComponent {
         this.people.push(...data);
         this.people.sort((a: Person, b: Person) => a.id - b.id)
         this.renderRows();
+        this.loaded = true;
         
      });
     }

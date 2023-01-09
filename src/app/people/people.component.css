@@ -11,3 +11,7 @@
 a, a:visited {
   color: LinkText;
 }
+
+mat-spinner {
+  margin: auto;
+}

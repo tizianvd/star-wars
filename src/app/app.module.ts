@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -44,6 +45,7 @@ import { FilmDetailsComponent } from './film-details/film-details.component';
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,

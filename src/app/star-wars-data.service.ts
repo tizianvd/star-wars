@@ -79,4 +79,12 @@ export class StarWarsDataService {
           )),
         );
   }
+
+  getFilm(id: number): Observable<Film> {
+    return this.http.get<any>(this.filmUrl + `${id}/`)
+    .pipe(map(response => {
+              response.id = id;
+              return response
+    }))
+  }
 }

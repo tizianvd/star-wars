@@ -1,1 +1,35 @@
-<p>film-details works!</p>
+<div *ngIf="loaded;else spinner;">
+    <h1>{{film.title}}</h1>
+    <mat-list>
+        <mat-list-item><b>Title: </b> {{film.title}}</mat-list-item>
+        <mat-list-item><b>Episode ID: </b>{{film.episode_id}}</mat-list-item>
+        <mat-list-item><b>Director: </b>{{film.director}}</mat-list-item>
+        <mat-list-item><b>Producer: </b>{{film.producer}}</mat-list-item>
+        <mat-list-item><b>Release Date: </b>{{film.release_date}}</mat-list-item>
+        <mat-list-item lines="3">
+            <span matListItemTitle><b>Opening Crawl</b></span>
+            <span>
+                {{film.opening_crawl}}
+            </span>
+        </mat-list-item>
+    </mat-list>
+
+    <h3>Characters</h3>
+    <table mat-table [dataSource]="characters" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="url">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
+        <td mat-cell *matCellDef="let element"><a routerLink="/person/{{element.id}}"><mat-icon aria-hidden="false" aria-label="open url icon" fontIcon="link"></mat-icon></a> </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>

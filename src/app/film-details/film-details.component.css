@@ -1,0 +1,11 @@
+h1, h3 {
+    text-align: center;
+  }
+
+a, a:visited {
+color: LinkText;
+}
+
+.spinner {
+    margin: auto;
+}
