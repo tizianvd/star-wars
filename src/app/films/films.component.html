@@ -2,6 +2,7 @@
 <mat-toolbar color="primary">
     <span>Films</span>
   </mat-toolbar>
+  <div *ngIf="loaded;else spinner">
   <table mat-table [dataSource]="films" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -18,5 +19,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
+</div>
+<ng-template #spinner><mat-spinner></mat-spinner></ng-template>
   
