@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Film, Person } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
 import { MatTable } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-film-details',
@@ -12,7 +13,9 @@ import { MatTable } from '@angular/material/table';
 export class FilmDetailsComponent implements OnInit {
   film!: Film;
   characters: Person[] = [];
+  currentPage: number = 0;
   loaded: boolean = false;
+  paginatorEnabled: boolean = false;
   displayedColumns: string[] = ['id', 'name', 'url'];
   constructor(
     private route: ActivatedRoute,
@@ -44,11 +47,20 @@ export class FilmDetailsComponent implements OnInit {
           this.renderRows();
           this.characters.push(element);
           this.characters.sort((a: Person, b: Person) => a.id - b.id)
-          this.loaded = true;
+
         }
       });
       
-    });
+    }, null, 
+    () => {
+      this.loaded = true;
+      this.paginatorEnabled = true;
+      }
+    );
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.currentPage = event.pageIndex;
   }
 
   ngOnInit(): void {
