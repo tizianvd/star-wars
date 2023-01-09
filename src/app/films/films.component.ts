@@ -22,7 +22,7 @@ export class FilmsComponent implements OnInit {
 
   getFilms(): void {
     this.dataService.getFilms().subscribe(
-      data => {this.films.push(...data)
+      data => {this.films = data
       this.films.sort((a: Film, b: Film) => a.id - b.id)
 
       this.renderRows();

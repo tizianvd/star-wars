@@ -50,6 +50,12 @@ export class StarWarsDataService {
     }))
   }
 
+  getPlanetCount(): Observable<number> {
+    return this.http.get<ListResponse<Person>>(this.planetUrl).pipe(
+      map((response) => {return response.count})
+    );
+  }
+
   getPeople(page: number): Observable<Person[]> {
     
     return this.http.get<ListResponse<Person>>(this.peopleUrl + (page === 0 ? '': `?page=${page}`))

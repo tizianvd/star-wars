@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, tap, shareReplay } from 'rxjs/operators';
 import { StarWarsDataService } from '../star-wars-data.service';
 import { Planet } from '../interfaces';
 import { MatTable } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-planets',
@@ -12,18 +11,13 @@ import { MatTable } from '@angular/material/table';
   styleUrls: ['./planets.component.css']
 })
 export class PlanetsComponent implements OnInit {
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
-
   planets: any = [];
+  loaded: boolean = false;
+  totalPlanetCount: number = 0;
+  paginatorEnabled: boolean = true;
   @ViewChild(MatTable) table?: MatTable<any>;
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
     private dataService: StarWarsDataService
             ) {}
 
@@ -31,19 +25,28 @@ export class PlanetsComponent implements OnInit {
     this.table?.renderRows();
   }
 
-  getPlanets(): void {
-    for (let i = 1; i < 7; i++) {
-      this.dataService.getPlanets(i).subscribe(
-        data => {this.planets.push(...data)
-        this.planets.sort((a: Planet, b: Planet) => a.id - b.id)
+  getPlanets(page: number): void {
+    this.dataService.getPlanets(page).subscribe(
+      data => {this.planets = data
+      this.planets.sort((a: Planet, b: Planet) => a.id - b.id)
+      this.renderRows();
+      this.loaded = true;
+      this.paginatorEnabled = true;
+    });
+  }
 
-        this.renderRows();
-      });
-    }
+  getTotalPlanetCount() {
+    this.dataService.getPlanetCount().subscribe(count => this.totalPlanetCount = count);
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.paginatorEnabled = false;
+    this.getPlanets(event.pageIndex + 1);
   }
 
   ngOnInit() {
-    this.getPlanets();
+    this.getPlanets(1);
+    this.getTotalPlanetCount();
   }
 
   displayedColumns: string[] = ['id', 'name', 'url'];
