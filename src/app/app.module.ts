@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PlanetDetailsComponent } from './planet-details/planet-details.component';
 import { PeopleComponent } from './people/people.component';
 import { PersonComponent } from './person/person.component';
+import { FilmsComponent } from './films/films.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { PersonComponent } from './person/person.component';
     PlanetDetailsComponent,
     PeopleComponent,
     PersonComponent,
+    FilmsComponent,
   ],
   imports: [
     BrowserModule,
