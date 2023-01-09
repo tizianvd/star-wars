@@ -38,20 +38,17 @@ export class FilmDetailsComponent implements OnInit {
   }
 
   getCharacters(): void {
-    for (let i = 1; i < 8; i++)
-    {
-      this.dataService.getPeople(i).subscribe(data => {
-        data.forEach(element => {
-          if (this.film.characters.includes(element.url)){
-            this.renderRows();
-            this.characters.push(element);
-            this.characters.sort((a: Person, b: Person) => a.id - b.id)
-            this.loaded = true;
-          }
-        });
-        
-     });
-    }
+    this.dataService.getAllPeople().subscribe(data => {
+      data.forEach(element => {
+        if (this.film.characters.includes(element.url)){
+          this.renderRows();
+          this.characters.push(element);
+          this.characters.sort((a: Person, b: Person) => a.id - b.id)
+          this.loaded = true;
+        }
+      });
+      
+    });
   }
 
   ngOnInit(): void {

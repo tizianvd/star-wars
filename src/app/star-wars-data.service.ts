@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Planet, Person, Film } from './interfaces';
-import { Observable, mergeMap, of, catchError, map, tap, throwError  } from 'rxjs';
+import { Observable, expand, EMPTY, catchError, map, tap, throwError  } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
@@ -66,6 +66,20 @@ export class StarWarsDataService {
           )),
         );
   }
+
+  getAllPeople(): Observable<Person[]> {
+    
+    return this.http.get<ListResponse<Person>>(this.peopleUrl + "?page=1")
+        .pipe(
+              expand(response => response.next ? this.http.get<ListResponse<Person>>(response.next) : EMPTY),
+              map((people => people.results.map(person => {
+              person.id = Number(person.url?.substring(this.peopleUrl.length, person.url?.length - 1));
+              return person;
+            })
+          )),
+        );
+  }
+
 
   getPerson(id: number): Observable<Person> {
     return this.http.get<any>(this.peopleUrl + `${id}/`)
