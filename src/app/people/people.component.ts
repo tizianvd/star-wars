@@ -23,16 +23,13 @@ export class PeopleComponent {
   }
 
   getPeople(): void {
-    for (let i = 1; i < 8; i++)
-    {
-      this.dataService.getPeople(i).subscribe(data => {
-        this.people.push(...data);
-        this.people.sort((a: Person, b: Person) => a.id - b.id)
-        this.renderRows();
-        this.loaded = true;
-        
-     });
-    }
+    this.dataService.getPeople(0).subscribe(data => {
+      this.people.push(...data);
+      this.people.sort((a: Person, b: Person) => a.id - b.id)
+      this.renderRows();
+      this.loaded = true;
+      
+    });
   }
 
   ngOnInit() {

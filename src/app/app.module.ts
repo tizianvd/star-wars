@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -46,6 +47,7 @@ import { FilmDetailsComponent } from './film-details/film-details.component';
     MatToolbarModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
