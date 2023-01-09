@@ -69,6 +69,12 @@ export class StarWarsDataService {
     }))
   }
 
+  getPeopleCount(): Observable<number> {
+    return this.http.get<ListResponse<Person>>(this.peopleUrl).pipe(
+      map((response) => {return response.count})
+    );
+  }
+
   getFilms(): Observable<Film[]> {
     
     return this.http.get<ListResponse<Film>>(this.filmUrl)
