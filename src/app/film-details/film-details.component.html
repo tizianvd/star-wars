@@ -14,28 +14,9 @@
         </mat-list-item>
     </mat-list>
 
-    <h3>Characters</h3>
-    <table mat-table [dataSource]="characters.slice(0 + currentPage * 10, 10 + currentPage * 10)" class="mat-elevation-z8">
-        <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-        <ng-container matColumnDef="url">
-        <th mat-header-cell *matHeaderCellDef> Details </th>
-        <td mat-cell *matCellDef="let element"><a routerLink="/person/{{element.id}}"><mat-icon aria-hidden="false" aria-label="open url icon" fontIcon="link"></mat-icon></a> </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [length]="characters.length"
-              [pageSize]="10"
-              [disabled]="!paginatorEnabled"
-              (page)="handlePageEvent($event)"
-              aria-label="Select page">
-  </mat-paginator>
+    <div *ngIf="characters.length">
+        <h3>Characters</h3>
+        <app-data-table [tableData]="characters" [columns]="charactersTableColumns" [pagination]="pagination" [isStatic]="true"></app-data-table>
+    </div>
 </div>
 <ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>

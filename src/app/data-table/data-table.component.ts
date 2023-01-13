@@ -12,6 +12,7 @@ export class DataTableComponent implements OnChanges {
   @Input() tableData: any;
   @Input() columns: any;
   @Input() pagination: any;
+  @Input() isStatic: boolean = false;
 
   @Output() pageEvent = new EventEmitter;
 
@@ -20,15 +21,24 @@ export class DataTableComponent implements OnChanges {
   dataSource: any;
   objectKeys = Object.keys;
 
+  reloadData() {
+    this.dataSource = new MatTableDataSource(this.pagination && this.pagination.pageSize > 0 ? this.tableData.slice(this.pagination.currentPage * this.pagination.pageSize, (this.pagination.currentPage + 1) * this.pagination.pageSize) : this.tableData);
+  }
   ngOnChanges() {
-    this.dataSource = new MatTableDataSource(this.tableData);
-    if (this.pagination) {
-      this.pagination.paginatorEnabled = true;
+    if (this.pagination && !this.pagination.currentPage) {
+      this.pagination.currentPage = 0;
     }
+
+    this.reloadData();
   }
 
   handlePageEvent(event: PageEvent) {
-    this.pagination.paginatorEnabled = false;
+    this.pagination.currentPage = event.pageIndex; 
     this.pageEvent.emit(event.pageIndex + 1);
+    if (this.isStatic) {
+      this.reloadData();
+    } else {
+      this.pagination.paginatorEnabled = false;
+    }
   }
 }

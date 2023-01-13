@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Film, Person } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
-import { MatTable } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-film-details',
@@ -13,17 +11,17 @@ import { PageEvent } from '@angular/material/paginator';
 export class FilmDetailsComponent implements OnInit {
   film!: Film;
   characters: Person[] = [];
-  currentPage: number = 0;
   loaded: boolean = false;
-  paginatorEnabled: boolean = false;
-  displayedColumns: string[] = ['id', 'name', 'url'];
+  pagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  charactersTableColumns = {'id' : {name: 'ID'}, 
+                      'name' : {name: 'Name'}, 
+                      'url' : {name: 'Details', url:['/person/', 'id']}
+  };
   constructor(
     private route: ActivatedRoute,
     private dataService: StarWarsDataService
 
   ){}
-
-  @ViewChild(MatTable) table?: MatTable<any>;
 
   getFilm() : void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -36,17 +34,13 @@ export class FilmDetailsComponent implements OnInit {
     );
   }
 
-  renderRows() {
-    this.table?.renderRows();
-  }
-
   getCharacters(): void {
     this.dataService.getAllRecords("people").subscribe(data => {
       data.forEach(element => {
         if (this.film.characters.includes(element.url)){
-          this.renderRows();
           this.characters.push(element);
           this.characters.sort((a: Person, b: Person) => a.id - b.id)
+          this.pagination.length = this.characters.length;
 
         }
       });
@@ -54,13 +48,8 @@ export class FilmDetailsComponent implements OnInit {
     }, null, 
     () => {
       this.loaded = true;
-      this.paginatorEnabled = true;
       }
     );
-  }
-
-  handlePageEvent(event: PageEvent) {
-    this.currentPage = event.pageIndex;
   }
 
   ngOnInit(): void {
