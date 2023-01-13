@@ -39,6 +39,7 @@ export interface Film {
     release_date: string;
     characters: string[];
     planets: string[];
+    species: string[];
     url: string;
 }
 

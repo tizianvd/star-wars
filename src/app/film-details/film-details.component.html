@@ -13,10 +13,21 @@
             </span>
         </mat-list-item>
     </mat-list>
+    
+    <div *ngIf="planets.length">
+        <h3>Planets</h3>
+        <app-data-table [tableData]="planets" [columns]="planetTableColumns" [pagination]="planetPagination" [isStatic]="true"></app-data-table>
+    </div>
 
     <div *ngIf="characters.length">
         <h3>Characters</h3>
-        <app-data-table [tableData]="characters" [columns]="charactersTableColumns" [pagination]="pagination" [isStatic]="true"></app-data-table>
+        <app-data-table [tableData]="characters" [columns]="charactersTableColumns" [pagination]="characterPagination" [isStatic]="true"></app-data-table>
     </div>
+
+    <div *ngIf="species.length">
+        <h3>Species</h3>
+        <app-data-table [tableData]="species" [columns]="speciesTableColumns" [pagination]="speciesPagination" [isStatic]="true"></app-data-table>
+    </div>
+    
 </div>
 <ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>
