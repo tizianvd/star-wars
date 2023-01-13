@@ -29,6 +29,7 @@ import { FilmsComponent } from './films/films.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { SpeciesComponent } from './species/species.component';
 import { SpeciesDetailsComponent } from './species-details/species-details.component';
+import { DataTableComponent } from './data-table/data-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { SpeciesDetailsComponent } from './species-details/species-details.compo
     FilmDetailsComponent,
     SpeciesComponent,
     SpeciesDetailsComponent,
+    DataTableComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,14 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> 
+    <ng-container [matColumnDef]="tableData" *ngFor="let tableData of objectKeys(columns)">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[tableData].name}}    </th>
+        <ng-template  [ngIf]="columns[tableData].url !== undefined" [ngIfElse]="noUrl">
+            <td mat-cell *matCellDef="let element"> <a routerLink="{{columns[tableData].url[0]}}{{element[columns[tableData].url[1]]}}"><mat-icon aria-hidden="false" aria-label="open url icon" fontIcon="link"></mat-icon></a></td>
+        </ng-template >
+        <ng-template #noUrl>
+            <td mat-cell *matCellDef="let element">{{element[tableData]}}</td>
+        </ng-template>
+    </ng-container>  
+    <tr mat-header-row *matHeaderRowDef="objectKeys(columns)"></tr>
+    <tr mat-row *matRowDef="let row; columns: objectKeys(columns);"></tr>
+
+</table>

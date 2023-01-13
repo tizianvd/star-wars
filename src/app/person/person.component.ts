@@ -3,7 +3,6 @@ import { Person, Planet, Film } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
 import { MatTable } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-person',
@@ -17,7 +16,10 @@ export class PersonComponent implements OnInit {
   homeworld?: Planet;
   loaded: boolean = false;
   @ViewChild(MatTable) table?: MatTable<any>;
-  displayedColumns: string[] = ['id', 'title', 'url'];
+  filmsTableColumns = {'id' : {name: 'ID'}, 
+                       'title' : {name: 'Title'}, 
+                       'url' : {name: 'Details', url:['/film-details/', 'id']}
+  }
 
   constructor(
     private dataService: StarWarsDataService,
