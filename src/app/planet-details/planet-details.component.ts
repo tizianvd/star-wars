@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Planet, Person } from '../interfaces';
+import { Planet, Person, Film } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
-import { MatTable } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-planet-details',
@@ -19,10 +17,16 @@ export class PlanetDetailsComponent implements OnInit {
 
   planet!: Planet;
   residents: Person[] = [];
+  films: Film[] = [];
   loaded: boolean = false;
-  currentPage: number = 0;
-  paginatorEnabled: boolean = false;
-  @ViewChild(MatTable) table?: MatTable<any>;
+  residentsTableColumns = {'id' : {name: 'ID'}, 
+                      'name' : {name: 'Name'}, 
+                      'url' : {name: 'Details', url:['/person/', 'id']}
+  };
+  filmsTableColumns = {'id' : {name: 'ID'}, 
+                       'title' : {name: 'Title'}, 
+                       'url' : {name: 'Details', url:['/film-details/', 'id']}
+  };
 
   getPlanet() : void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -30,11 +34,8 @@ export class PlanetDetailsComponent implements OnInit {
     .subscribe(
       planet => {this.planet = planet
       this.getResidents()
+      this.getFilms()
   });
-  }
-
-  renderRows() {
-    this.table?.renderRows();
   }
 
   getResidents(): void {
@@ -42,7 +43,6 @@ export class PlanetDetailsComponent implements OnInit {
       next: data => {
       data.forEach(element => {
         if (this.dataService.getIDFromURL("planets", element.homeworld) == this.planet.id){
-          this.renderRows();
           this.residents.push(element);
         }
       });
@@ -55,8 +55,22 @@ export class PlanetDetailsComponent implements OnInit {
     });
   }
 
-  handlePageEvent(event: PageEvent) {
-    this.currentPage = event.pageIndex;
+  getFilms(): void {
+    this.dataService.getAllRecords("films").subscribe({
+      next: data => {
+      data.forEach(element => {
+        if (this.planet.films.includes(element.url)){
+          this.films.push(element);
+          this.films.sort((a: Film, b: Film) => a.id - b.id)
+
+        }
+      });
+      }
+      });
+  }
+
+  handlePageEvent(newPage: any) {
+    this.getResidents()
   }
 
   ngOnInit(): void {

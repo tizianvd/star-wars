@@ -10,6 +10,7 @@ export interface Planet {
     surface_water: number,
     population: number,
     residents: string[],
+    films: string[],
     url: string;
 };
 
