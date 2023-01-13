@@ -10,5 +10,12 @@
     </ng-container>  
     <tr mat-header-row *matHeaderRowDef="objectKeys(columns)"></tr>
     <tr mat-row *matRowDef="let row; columns: objectKeys(columns);"></tr>
-
 </table>
+<div *ngIf="pagination !== undefined">
+    <mat-paginator [length]="pagination.length"
+                [pageSize]="10"
+                [disabled]="!pagination.paginatorEnabled"
+                (page)="handlePageEvent($event)"
+                aria-label="Select page">
+    </mat-paginator>
+</div>
