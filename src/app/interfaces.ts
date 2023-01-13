@@ -24,6 +24,7 @@ export interface Person {
     gender: string;
     homeworld: string;
     films: string[];
+    species: string[];
     url: string;
 }
 

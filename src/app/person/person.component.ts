@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Person, Planet, Film } from '../interfaces';
+import { Component, OnInit } from '@angular/core';
+import { Person, Planet, Film, Species } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
-import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-person',
@@ -13,13 +12,17 @@ export class PersonComponent implements OnInit {
 
   person!: Person;
   films: Film[] = [];
+  species: Species[] = [];
   homeworld?: Planet;
   loaded: boolean = false;
-  @ViewChild(MatTable) table?: MatTable<any>;
+  speciesTableColumns = {'id' : {name: 'ID'}, 
+                       'name' : {name: 'Name'}, 
+                       'url' : {name: 'Details', url:['/species-details/', 'id']}
+  };
   filmsTableColumns = {'id' : {name: 'ID'}, 
                        'title' : {name: 'Title'}, 
                        'url' : {name: 'Details', url:['/film-details/', 'id']}
-  }
+  };
 
   constructor(
     private dataService: StarWarsDataService,
@@ -34,6 +37,7 @@ export class PersonComponent implements OnInit {
         this.person = person
         this.getHomeworld();
         this.getFilms();
+        this.getSpecies();
       }
     );
   }
@@ -43,18 +47,27 @@ export class PersonComponent implements OnInit {
     .subscribe(planet => this.homeworld = planet)
   }
 
-  renderRows() {
-    this.table?.renderRows();
-  }
-
   getFilms(): void {
     this.dataService.getAllRecords("films").subscribe({
       next: data => {
       data.forEach(element => {
         if (this.person.films.includes(element.url)){
-          this.renderRows();
           this.films.push(element);
           this.films.sort((a: Film, b: Film) => a.id - b.id)
+
+        }
+      });
+      }
+      });
+  }
+
+  getSpecies(): void {
+    this.dataService.getAllRecords("species").subscribe({
+      next: data => {
+      data.forEach(element => {
+        if (this.person.species.includes(element.url)){
+          this.species.push(element);
+          this.species.sort((a: Species, b: Species) => a.id - b.id)
 
         }
       });

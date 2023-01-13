@@ -22,7 +22,9 @@ export class DataTableComponent implements OnChanges {
 
   ngOnChanges() {
     this.dataSource = new MatTableDataSource(this.tableData);
-    this.pagination.paginatorEnabled = true;
+    if (this.pagination) {
+      this.pagination.paginatorEnabled = true;
+    }
   }
 
   handlePageEvent(event: PageEvent) {

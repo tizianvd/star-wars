@@ -11,6 +11,10 @@
         <mat-list-item><span><b>Homeworld: </b><a [routerLink]="'/planet-details/' + homeworld?.id">{{homeworld?.name}}</a></span></mat-list-item>
       
     </mat-list>
+    <div *ngIf="species.length">
+        <h3>Species</h3>
+        <app-data-table [tableData]="species" [columns]="speciesTableColumns"></app-data-table>
+    </div>
     <h3>Films</h3>
     <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
     
