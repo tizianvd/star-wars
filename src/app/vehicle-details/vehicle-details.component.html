@@ -13,13 +13,15 @@
         <mat-list-item><span><b>Cargo Capacity: </b>{{vehicle.cargo_capacity}}</span></mat-list-item>
         <mat-list-item><span><b>Consumbales: </b>{{vehicle.consumables}}</span></mat-list-item>
     </mat-list>
-    <div *ngIf="pilots.length">
-        <h3>Pilots</h3>
-        <app-data-table [tableData]="pilots" [columns]="pilotsTableColumns"></app-data-table>
-    </div>
-    <div *ngIf="films.length">
-        <h3>Films</h3>
-        <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
-    </div>
+    <mat-tab-group>
+        <mat-tab *ngIf="pilots.length" label="Pilots">
+            <h3>Pilots</h3>
+            <app-data-table [tableData]="pilots" [columns]="pilotsTableColumns"></app-data-table>
+        </mat-tab>
+        <mat-tab *ngIf="films.length" label="Films">
+            <h3>Films</h3>
+            <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
+        </mat-tab>
+    </mat-tab-group>
 </div>
 <ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>
