@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Species, Planet, Person, Film, DataTableElement } from '../interfaces';
+import { Species, Planet, DataTableElement } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
 

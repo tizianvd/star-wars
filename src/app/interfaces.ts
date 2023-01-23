@@ -85,7 +85,7 @@ export interface Vehicle extends IObjectKeys {
     pilots: Person[];
 }
 
-export interface Starship {
+export interface Starship extends IObjectKeys {
     id: number;
     name: string;
     model: string;
