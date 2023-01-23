@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Person, Planet, Film, Species, Starship, Vehicle } from '../interfaces';
+import { Person, Planet, Film, Species, Starship, Vehicle, DataTableElement } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
 
@@ -11,28 +11,54 @@ import { StarWarsDataService } from '../star-wars-data.service';
 export class PersonComponent implements OnInit {
 
   person!: Person;
-  films: Film[] = [];
-  species: Species[] = [];
-  starships: Starship[] = [];
-  vehicles: Vehicle[] = [];
   homeworld?: Planet;
   loadedComponents: number = 0;
-  speciesTableColumns = {'id' : {name: 'ID'}, 
-                       'name' : {name: 'Name'}, 
-                       'url' : {name: 'Details', url:['/species-details/', 'id']}
-  };
-  starshipsTableColumns = {'id' : {name: 'ID'}, 
-  'name' : {name: 'Name'}, 
-  'url' : {name: 'Details', url:['/starship-details/', 'id']}
-  };
-  vehiclesTableColumns = {'id' : {name: 'ID'}, 
-  'name' : {name: 'Name'}, 
-  'url' : {name: 'Details', url:['/vehicle-details/', 'id']}
-  };
-  filmsTableColumns = {'id' : {name: 'ID'}, 
-                       'title' : {name: 'Title'}, 
-                       'url' : {name: 'Details', url:['/film-details/', 'id']}
-  };
+  tables: DataTableElement[] =   [ 
+                {
+                  name : "Species",
+                  field : "species",
+                  object_key : "species",
+                  data : [],
+                  pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                  columns : 
+                          {'id' : {name: 'ID'}, 
+                          'name' : {name: 'Name'}, 
+                          'url' : {name: 'Details', url:['/species-details/', 'id']}}
+                },
+                {
+                  name : "Starships",
+                  field : "starships",
+                  object_key : "starships",
+                  data: [],
+                  pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                  columns : 
+                        {'id' : {name: 'ID'}, 
+                        'name' : {name: 'Name'}, 
+                        'url' : {name: 'Details', url:['/starship-details/', 'id']}}
+                },
+                {
+                  name : "Vehicles",
+                  field : "vehicles",
+                  object_key : "vehicles",
+                  data: [],
+                  pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                  columns : 
+                        {'id' : {name: 'ID'}, 
+                        'name' : {name: 'Name'}, 
+                        'url' : {name: 'Details', url:['/vehicle-details/', 'id']}}
+                },
+                {
+                    name : "Films",
+                    field : "films",
+                    object_key : "films",
+                    data: [],
+                    pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                    columns : 
+                          {'id' : {name: 'ID'}, 
+                          'title' : {name: 'Title'}, 
+                          'url' : {name: 'Details', url:['/film-details/', 'id']}}
+                },
+              ]
 
   constructor(
     private dataService: StarWarsDataService,
@@ -45,11 +71,10 @@ export class PersonComponent implements OnInit {
     .subscribe(
       person => {
         this.person = person
-        this.getHomeworld();
-        this.getData<Species>(this.person.species, this.species, "species");
-        this.getData<Starship>(this.person.starships, this.starships, "starships");
-        this.getData<Vehicle>(this.person.vehicles, this.vehicles, "vehicles");
-        this.getData<Film>(this.person.films, this.films, "films");
+        this.getHomeworld()
+        for (let table of this.tables) {
+          this.getData(table);
+        }
 
       }
     );
@@ -60,13 +85,14 @@ export class PersonComponent implements OnInit {
     .subscribe(planet => this.homeworld = planet)
   }
 
-  getData<T extends Species | Starship | Vehicle | Film>(list: T[], resultList: T[], field: string): void {
-    this.dataService.getAllRecords(field).subscribe({
+  getData(dataTable: DataTableElement): void {
+    this.dataService.getAllRecords(dataTable.field).subscribe({
       next: data => {
       data.forEach(element => {
-        if (list.includes(element.url)){
-          resultList.push(element);
-          resultList.sort((a: T, b: T) => a.id - b.id)
+        if (this.person[dataTable.object_key].includes(element.url)){
+          dataTable.data.push(element);
+          dataTable.data.sort((a: any, b: any) => a.id - b.id)
+          dataTable.pagination.length = dataTable.data.length
 
         }
       });

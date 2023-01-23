@@ -25,7 +25,7 @@ export class DataTableComponent implements OnChanges {
 
   reloadData() {
     if (this.addEmptyRows) {
-      for (let i = 0; i <= this.pagination.length % this.pagination.pageSize; i++) {
+      for (let i = 0; i <= this.pagination.pageSize - this.pagination.length % this.pagination.pageSize; i++) {
         this.tableData.push(Object.create(null))
       }
     }

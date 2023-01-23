@@ -19,7 +19,7 @@ export interface Planet extends IObjectKeys {
     url: string;
 };
 
-export interface Person {
+export interface Person extends IObjectKeys {
     id: number;
     name: string;
     mass: number;

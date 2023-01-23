@@ -21,7 +21,7 @@ export class FilmDetailsComponent implements OnInit {
                                 columns : 
                                         {'id' : {name: 'ID'}, 
                                         'name' : {name: 'Name'}, 
-                                        'url' : {name: 'Details', url:['/person/', 'id']}}
+                                        'url' : {name: 'Details', url:['/planet-details/', 'id']}}
                 },
                 {
                                 name : "Characters",
@@ -32,7 +32,7 @@ export class FilmDetailsComponent implements OnInit {
                                 columns : 
                                       {'id' : {name: 'ID'}, 
                                       'name' : {name: 'Name'}, 
-                                      'url' : {name: 'Details', url:['/film-details/', 'id']}}
+                                      'url' : {name: 'Details', url:['/person/', 'id']}}
                 },
                 {
                                 name : "Species",
@@ -43,7 +43,7 @@ export class FilmDetailsComponent implements OnInit {
                                 columns : 
                                       {'id' : {name: 'ID'}, 
                                       'name' : {name: 'Name'}, 
-                                      'url' : {name: 'Details', url:['/film-details/', 'id']}}
+                                      'url' : {name: 'Details', url:['/species-details/', 'id']}}
                 },
                 {
                                 name : "Starships",
@@ -54,7 +54,7 @@ export class FilmDetailsComponent implements OnInit {
                                 columns : 
                                       {'id' : {name: 'ID'}, 
                                       'name' : {name: 'Name'}, 
-                                      'url' : {name: 'Details', url:['/film-details/', 'id']}}
+                                      'url' : {name: 'Details', url:['/starship-details/', 'id']}}
                 },
                 {
                                 name : "Vehicles",
@@ -65,7 +65,7 @@ export class FilmDetailsComponent implements OnInit {
                                 columns : 
                                       {'id' : {name: 'ID'}, 
                                       'name' : {name: 'Name'}, 
-                                      'url' : {name: 'Details', url:['/film-details/', 'id']}}
+                                      'url' : {name: 'Details', url:['/vehicle-details/', 'id']}}
                 }
   ]
 

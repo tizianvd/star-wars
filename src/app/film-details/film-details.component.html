@@ -15,10 +15,12 @@
     </mat-list>
 
     <mat-tab-group>
-        <mat-tab *ngFor="let table of tables" [label]="table['name']">
-            <h3>{{table['name']}}</h3>
-            <app-data-table [tableData]="table.data" [columns]="table['columns']" [pagination]="table['pagination']" [isStatic]="true" [addEmptyRows]="true"></app-data-table>
-        </mat-tab>
+        <ng-container *ngFor="let table of tables">
+            <mat-tab *ngIf="table.data.length" [label]="table['name']">
+                <h3>{{table['name']}}</h3>
+                <app-data-table [tableData]="table.data" [columns]="table['columns']" [pagination]="table['pagination']" [isStatic]="true" [addEmptyRows]="true"></app-data-table>
+            </mat-tab>
+        </ng-container>
     </mat-tab-group>
 </div>
 <ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>
