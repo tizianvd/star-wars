@@ -16,27 +16,27 @@ export class FilmDetailsComponent implements OnInit {
   starships: Starship[] = [];
   vehicles: Vehicle[] = [];
   loadedComponents: number = 0;
-  characterPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  characterPagination = {length: 0, paginatorEnabled: true, pageSize: 5};
   charactersTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
                       'url' : {name: 'Details', url:['/person/', 'id']}
   };
-  planetPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  planetPagination = {length: 0, paginatorEnabled: true, pageSize: 5};
   planetTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
                       'url' : {name: 'Details', url:['/planet-details/', 'id']}
   };
-  speciesPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  speciesPagination = {length: 0, paginatorEnabled: true, pageSize: 5};
   speciesTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
                       'url' : {name: 'Details', url:['/species-details/', 'id']}
   };
-  starshipPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  starshipPagination = {length: 0, paginatorEnabled: true, pageSize: 5};
   starshipTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
                       'url' : {name: 'Details', url:['/starship-details/', 'id']}
   };
-  vehiclePagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  vehiclePagination = {length: 0, paginatorEnabled: true, pageSize: 5};
   vehicleTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
                       'url' : {name: 'Details', url:['/vehicle-details/', 'id']}
@@ -71,6 +71,7 @@ export class FilmDetailsComponent implements OnInit {
         if (list.includes(element.url)){
           resultList.push(element);
           resultList.sort((a: T, b: T) => a.id - b.id)
+          
 
         }
       });

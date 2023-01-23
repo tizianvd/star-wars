@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpCacheInterceptorModule, useHttpCacheLocalStorage  } from '@ngneat/cashew';
 
+import { MatTab, MatTabsModule }  from '@angular/material/tabs'; 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { NavigationComponent } from './navigation/navigation.component';
@@ -65,6 +66,7 @@ import { StarshipDetailsComponent } from './starship-details/starship-details.co
     MatButtonModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatTabsModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
