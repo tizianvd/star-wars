@@ -1,4 +1,4 @@
-<div *ngIf="loadedComponents == 5;else spinner;">
+<div *ngIf="loadedComponents >= 5;else spinner;">
     <h1>{{film.title}}</h1>
     <mat-list>
         <mat-list-item><b>Title: </b> {{film.title}}</mat-list-item>

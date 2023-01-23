@@ -53,103 +53,33 @@ export class FilmDetailsComponent implements OnInit {
     .subscribe(
       film => {
         this.film = film
-        this.getCharacters();
-        this.getPlanets();
-        this.getSpecies();
-        this.getStarships();
-        this.getVehicles();
+        this.getData<Person>(this.film.characters, this.characters, "people");
+        this.getData<Planet>(this.film.planets, this.planets, "planets");
+        this.getData<Species>(this.film.species, this.species, "species");
+        this.getData<Starship>(this.film.starships, this.starships, "starships");
+        this.getData<Vehicle>(this.film.vehicles, this.vehicles, "vehicles");
+
       }
     );
   }
 
-  getCharacters(): void {
-    this.dataService.getAllRecords("people").subscribe(data => {
+
+  getData<T extends Person | Planet | Species | Starship | Vehicle>(list: T[], resultList: T[], field: string): void {
+    this.dataService.getAllRecords(field).subscribe({
+      next: data => {
       data.forEach(element => {
-        if (this.film.characters.includes(element.url)){
-          this.characters.push(element);
-          this.characters.sort((a: Person, b: Person) => a.id - b.id)
-          this.characterPagination.length = this.characters.length;
+        if (list.includes(element.url)){
+          resultList.push(element);
+          resultList.sort((a: T, b: T) => a.id - b.id)
 
         }
       });
       
-    }, null, 
-    () => {
-      this.loadedComponents++;
-      }
-    );
-  }
-
-  getPlanets(): void {
-    this.dataService.getAllRecords("planets").subscribe(data => {
-      data.forEach(element => {
-        if (this.film.planets.includes(element.url)){
-          this.planets.push(element);
-          this.planets.sort((a: Planet, b: Planet) => a.id - b.id)
-          this.planetPagination.length = this.planets.length;
-
+      }, 
+      complete: () => {
+        this.loadedComponents++;
         }
       });
-      
-    }, null, 
-    () => {
-      this.loadedComponents++;
-      }
-    );
-  }
-
-  getSpecies(): void {
-    this.dataService.getAllRecords("species").subscribe(data => {
-      data.forEach(element => {
-        if (this.film.species.includes(element.url)){
-          this.species.push(element);
-          this.species.sort((a: Species, b: Species) => a.id - b.id)
-          this.speciesPagination.length = this.species.length;
-
-        }
-      });
-      
-    }, null, 
-    () => {
-      this.loadedComponents++;
-      }
-    );
-  }
-
-  getStarships(): void {
-    this.dataService.getAllRecords("starships").subscribe(data => {
-      data.forEach(element => {
-        if (this.film.starships.includes(element.url)){
-          this.starships.push(element);
-          this.starships.sort((a: Starship, b: Starship) => a.id - b.id)
-          this.starshipPagination.length = this.starships.length;
-
-        }
-      });
-      
-    }, null, 
-    () => {
-      this.loadedComponents++;
-      }
-    );
-  }
-
-  getVehicles(): void {
-    this.dataService.getAllRecords("vehicles").subscribe(data => {
-      data.forEach(element => {
-        if (this.film.vehicles.includes(element.url)){
-          this.vehicles.push(element);
-          this.vehicles.sort((a: Vehicle, b: Vehicle) => a.id - b.id)
-          this.vehiclePagination.length = this.vehicles.length;
-
-        }
-      });
-      
-    }, null, 
-    () => {
-      this.loadedComponents++;
-      }
-    );
   }
 
   ngOnInit(): void {

@@ -40,9 +40,9 @@ export interface Film {
     director: string;
     producer: string;
     release_date: string;
-    characters: string[];
-    planets: string[];
-    species: string[];
+    characters: Person[];
+    planets: Planet[];
+    species: Species[];
     vehicles: Vehicle[];
     starships: Starship[];
     url: string;
