@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Species, Planet, Person } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
-import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-species-details',
@@ -14,8 +13,10 @@ export class SpeciesDetailsComponent implements OnInit {
   homeworld?: Planet;
   people: Person[] = [];
   loaded: boolean = false;
-  @ViewChild(MatTable) table?: MatTable<any>;
-  displayedColumns: string[] = ['id', 'name', 'url'];
+  peopleTableColumns = {'id' : {name: 'ID'}, 
+  'name' : {name: 'Name'}, 
+  'url' : {name: 'Details', url:['/person/', 'id']}
+  };
 
   constructor(
     private dataService: StarWarsDataService,
@@ -41,16 +42,11 @@ export class SpeciesDetailsComponent implements OnInit {
       })
     }
 
-    renderRows() {
-      this.table?.renderRows();
-    }
-
     getPeople(): void {
       this.dataService.getAllRecords("people").subscribe({
         next: data => {
         data.forEach(element => {
           if (this.species.people.includes(element.url)){
-            this.renderRows();
             this.people.push(element);
             this.people.sort((a: Person, b: Person) => a.id - b.id)
   
