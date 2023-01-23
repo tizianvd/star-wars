@@ -15,35 +15,25 @@
     </mat-list>
 
     <mat-tab-group>
-        <mat-tab label="Planets">
-            <div *ngIf="planets.length">
-                <h3>Planets</h3>
-                <app-data-table [tableData]="planets" [columns]="planetTableColumns" [pagination]="planetPagination" [isStatic]="true"></app-data-table>
-            </div>
+        <mat-tab label="Planets" *ngIf="planets.length">
+            <h3>Planets</h3>
+            <app-data-table [tableData]="planets" [columns]="planetTableColumns" [pagination]="planetPagination" [isStatic]="true"></app-data-table>
         </mat-tab>
-        <mat-tab label="Characters">
-            <div *ngIf="characters.length">
-                <h3>Characters</h3>
-                <app-data-table [tableData]="characters" [columns]="charactersTableColumns" [pagination]="characterPagination" [isStatic]="true"></app-data-table>
-            </div>
+        <mat-tab label="Characters" *ngIf="characters.length">
+            <h3>Characters</h3>
+            <app-data-table [tableData]="characters" [columns]="charactersTableColumns" [pagination]="characterPagination" [isStatic]="true"></app-data-table>
         </mat-tab>
-        <mat-tab label="Species">
-            <div *ngIf="species.length">
-                <h3>Species</h3>
-                <app-data-table [tableData]="species" [columns]="speciesTableColumns" [pagination]="speciesPagination" [isStatic]="true"></app-data-table>
-            </div>
+        <mat-tab label="Species" *ngIf="species.length">
+            <h3>Species</h3>
+            <app-data-table [tableData]="species" [columns]="speciesTableColumns" [pagination]="speciesPagination" [isStatic]="true"></app-data-table>
         </mat-tab>
-        <mat-tab label="Starships">
-            <div *ngIf="starships.length">
-                <h3>Starships</h3>
-                <app-data-table [tableData]="starships" [columns]="starshipTableColumns" [pagination]="starshipPagination" [isStatic]="true"></app-data-table>
-            </div>
+        <mat-tab label="Starships" *ngIf="starships.length">
+            <h3>Starships</h3>
+            <app-data-table [tableData]="starships" [columns]="starshipTableColumns" [pagination]="starshipPagination" [isStatic]="true"></app-data-table>
         </mat-tab>
-        <mat-tab label="Vehicles">
-            <div *ngIf="vehicles.length">
-                <h3>Vehicles</h3>
-                <app-data-table [tableData]="vehicles" [columns]="vehicleTableColumns" [pagination]="vehiclePagination" [isStatic]="true"></app-data-table>
-            </div>
+        <mat-tab label="Vehicles" *ngIf="vehicles.length">
+            <h3>Vehicles</h3>
+            <app-data-table [tableData]="vehicles" [columns]="vehicleTableColumns" [pagination]="vehiclePagination" [isStatic]="true"></app-data-table>
         </mat-tab>
     </mat-tab-group>
 </div>
