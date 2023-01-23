@@ -1,0 +1,22 @@
+<div *ngIf="loaded;else spinner;">
+    <h1>{{vehicle.name}}</h1>
+    <mat-list>
+        <mat-list-item><span><b>Name: </b>{{vehicle.name}}</span></mat-list-item>
+        <mat-list-item><span><b>Model: </b>{{vehicle.model}}</span></mat-list-item>
+        <mat-list-item><span><b>Vehicle Class: </b>{{vehicle.vehicle_class}}</span></mat-list-item>
+        <mat-list-item><span><b>Manufacturer: </b>{{vehicle.manufacturer}}</span></mat-list-item>
+        <mat-list-item><span><b>Length: </b>{{vehicle.length}}</span></mat-list-item>
+        <mat-list-item><span><b>Cost in Credits: </b>{{vehicle.cost_in_credits}}</span></mat-list-item>
+        <mat-list-item><span><b>Crew: </b>{{vehicle.crew}}</span></mat-list-item>
+        <mat-list-item><span><b>Passengers: </b>{{vehicle.passengers}}</span></mat-list-item>
+        <mat-list-item><span><b>Max Atmosphering Speed: </b>{{vehicle.max_atmosphering_speed}}</span></mat-list-item>
+        <mat-list-item><span><b>Cargo Capacity: </b>{{vehicle.cargo_capacity}}</span></mat-list-item>
+        <mat-list-item><span><b>Consumbales: </b>{{vehicle.consumables}}</span></mat-list-item>
+    </mat-list>
+
+    <div *ngIf="films.length">
+        <h3>Films</h3>
+        <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
+    </div>
+</div>
+<ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>

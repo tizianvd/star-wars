@@ -30,6 +30,8 @@ import { FilmDetailsComponent } from './film-details/film-details.component';
 import { SpeciesComponent } from './species/species.component';
 import { SpeciesDetailsComponent } from './species-details/species-details.component';
 import { DataTableComponent } from './data-table/data-table.component';
+import { VehiclesComponent } from './vehicles/vehicles.component';
+import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,8 @@ import { DataTableComponent } from './data-table/data-table.component';
     SpeciesComponent,
     SpeciesDetailsComponent,
     DataTableComponent,
+    VehiclesComponent,
+    VehicleDetailsComponent,
   ],
   imports: [
     BrowserModule,

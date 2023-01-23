@@ -14,7 +14,7 @@ export class SpeciesComponent implements OnInit {
   columns = {
     'id' : {name: 'ID'},
     'name' : {name: 'Name'},
-    'url' : {name: 'Details', url: ['/person/','id']},
+    'url' : {name: 'Details', url: ['/species-details/','id']},
   }
 
 

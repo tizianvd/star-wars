@@ -13,7 +13,7 @@
 </table>
 <div *ngIf="pagination !== undefined">
     <mat-paginator [length]="pagination.length"
-                [pageSize]= "pagination.pageSize"
+                [pageSize]= "pagination.hasOwnProperty('pageSize') ? pagination.pageSize : 10"
                 [disabled]="!pagination.paginatorEnabled"
                 (page)="handlePageEvent($event)"
                 aria-label="Select page">

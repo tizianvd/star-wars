@@ -30,6 +30,7 @@ export class DataTableComponent implements OnChanges {
     }
 
     this.reloadData();
+    this.pagination.paginatorEnabled = true
   }
 
   handlePageEvent(event: PageEvent) {

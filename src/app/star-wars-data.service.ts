@@ -23,9 +23,6 @@ export class StarWarsDataService {
   ) { }
 
   private baseUrl = 'https://swapi.dev/api/';
-  private planetUrl = `${this.baseUrl}/planets/`;
-  private peopleUrl = `${this.baseUrl}/people/`;
-  private filmUrl = `${this.baseUrl}/films/`;
 
   getIDFromURL(field: string, url: string): number {
     return Number(url.substring((this.baseUrl + field + "/").length, url.length - 1));
@@ -36,7 +33,6 @@ export class StarWarsDataService {
     return this.http.get<ListResponse<any>>(this.baseUrl + field + (page === 0 ? '/': `/?page=${page}`))
       .pipe(map((data => data.results.map(record => {
             record.id = this.getIDFromURL(field, record.url);
-            console.log(record.url);
             return record;
           })
         ))

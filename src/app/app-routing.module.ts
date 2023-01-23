@@ -9,6 +9,8 @@ import { FilmsComponent } from './films/films.component';
 import { FilmDetailsComponent } from './film-details/film-details.component';
 import { SpeciesComponent } from './species/species.component';
 import { SpeciesDetailsComponent } from './species-details/species-details.component';
+import { VehiclesComponent } from './vehicles/vehicles.component';
+import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,9 @@ const routes: Routes = [
   {path: 'film-details/:id', component: FilmDetailsComponent},
   {path: 'species', component: SpeciesComponent},
   {path: 'species-details/:id', component: SpeciesDetailsComponent},
+  {path: 'vehicles', component: VehiclesComponent},
+  {path: 'vehicle-details/:id', component: VehicleDetailsComponent},
+
 
 ]
 
