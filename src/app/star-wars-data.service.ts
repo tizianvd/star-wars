@@ -65,4 +65,14 @@ export class StarWarsDataService {
           )),
         );
   }
+
+  search(field: string, phrase: string): Observable<any[]> {
+    return this.http.get<ListResponse<any>>(this.baseUrl + field + `/?search=${phrase}`, {context: withCache()})
+      .pipe(map((data => data.results.map(record => {
+            record.id = this.getIDFromURL(field, record.url);
+            return record;
+          })
+        ))
+      );
+  }
 }
