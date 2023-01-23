@@ -32,6 +32,7 @@ import { SpeciesDetailsComponent } from './species-details/species-details.compo
 import { DataTableComponent } from './data-table/data-table.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
+import { StarshipsComponent } from './starships/starships.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.compo
     DataTableComponent,
     VehiclesComponent,
     VehicleDetailsComponent,
+    StarshipsComponent,
   ],
   imports: [
     BrowserModule,
