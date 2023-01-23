@@ -10,8 +10,8 @@ export interface Planet {
     terrain: string,
     surface_water: number,
     population: number,
-    residents: string[],
-    films: string[],
+    residents: Person[],
+    films: Film[],
     url: string;
 };
 

@@ -33,13 +33,13 @@ export class VehicleDetailsComponent implements OnInit {
     .subscribe(
       vehicle => {
         this.vehicle = vehicle
-        this.getData<Person>(this.vehicle.pilots, this.pilots, "people", "pilots");
-        this.getData<Film>(this.vehicle.films, this.films , "films", "films");
+        this.getData<Person>(this.vehicle.pilots, this.pilots, "people");
+        this.getData<Film>(this.vehicle.films, this.films , "films");
       }
     );
   }
 
-  getData<T extends Person | Film>(list: T[], resultList: T[], field: string, key: string): void {
+  getData<T extends Person | Film>(list: T[], resultList: T[], field: string): void {
     this.dataService.getAllRecords(field).subscribe({
       next: data => {
       data.forEach(element => {

@@ -18,7 +18,7 @@ export class PlanetDetailsComponent implements OnInit {
   planet!: Planet;
   residents: Person[] = [];
   films: Film[] = [];
-  loaded: boolean = false;
+  loadedComponents: number = 0;
   residentsTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
                       'url' : {name: 'Details', url:['/person/', 'id']}
@@ -33,44 +33,28 @@ export class PlanetDetailsComponent implements OnInit {
     this.dataService.getRecord("planets", id)
     .subscribe(
       planet => {this.planet = planet
-      this.getResidents()
-      this.getFilms()
+      this.getData<Person>(this.planet.residents, this.residents, "people");
+      this.getData<Film>(this.planet.films, this.films, "films");
+
   });
   }
 
-  getResidents(): void {
-    this.dataService.getAllRecords("people").subscribe({
+  getData<T extends Person | Film>(list: T[], resultList: T[], field: string): void {
+    this.dataService.getAllRecords(field).subscribe({
       next: data => {
       data.forEach(element => {
-        if (this.dataService.getIDFromURL("planets", element.homeworld) == this.planet.id){
-          this.residents.push(element);
+        if (list.includes(element.url)){
+          resultList.push(element);
+          resultList.sort((a: T, b: T) => a.id - b.id)
+
         }
       });
       
-      },
-     
+      }, 
       complete: () => {
-        this.loaded = true;
-        }
-    });
-  }
-
-  getFilms(): void {
-    this.dataService.getAllRecords("films").subscribe({
-      next: data => {
-      data.forEach(element => {
-        if (this.planet.films.includes(element.url)){
-          this.films.push(element);
-          this.films.sort((a: Film, b: Film) => a.id - b.id)
-
+        this.loadedComponents++;
         }
       });
-      }
-      });
-  }
-
-  handlePageEvent(newPage: any) {
-    this.getResidents()
   }
 
   ngOnInit(): void {
