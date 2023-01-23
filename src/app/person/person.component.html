@@ -1,4 +1,4 @@
-<div *ngIf="loadedComponents >= 4;else spinner;">
+<div *ngIf="loadedComponents >= tables.length;else spinner;">
     <h1>{{person.name}}</h1>
     <mat-list>
         <mat-list-item><span><b>Name: </b>{{person.name}}</span></mat-list-item>
