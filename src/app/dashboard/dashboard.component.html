@@ -1,4 +1,4 @@
 <div id="searchDialog">
   <h1>Suche</h1>
-  <input>
+  <input type="text" [ngModel]="searchPhrase" (ngModelChange)="onType($event)">
 </div>
