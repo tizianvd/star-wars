@@ -33,6 +33,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
 import { StarshipsComponent } from './starships/starships.component';
+import { StarshipDetailsComponent } from './starship-details/starship-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +51,7 @@ import { StarshipsComponent } from './starships/starships.component';
     VehiclesComponent,
     VehicleDetailsComponent,
     StarshipsComponent,
+    StarshipDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+<div *ngIf="loaded;else spinner;">
+    <h1>{{starship.name}}</h1>
+    <mat-list>
+        <mat-list-item><span><b>Name: </b>{{starship.name}}</span></mat-list-item>
+        <mat-list-item><span><b>Model: </b>{{starship.model}}</span></mat-list-item>
+        <mat-list-item><span><b>Starship Class: </b>{{starship.starship_class}}</span></mat-list-item>
+        <mat-list-item><span><b>Manufacturer: </b>{{starship.manufacturer}}</span></mat-list-item>
+        <mat-list-item><span><b>Length: </b>{{starship.length}}</span></mat-list-item>
+        <mat-list-item><span><b>Cost in Credits: </b>{{starship.cost_in_credits}}</span></mat-list-item>
+        <mat-list-item><span><b>Crew: </b>{{starship.crew}}</span></mat-list-item>
+        <mat-list-item><span><b>Passengers: </b>{{starship.passengers}}</span></mat-list-item>
+        <mat-list-item><span><b>Max. Atmosphering Speed: </b>{{starship.max_atmosphering_speed}}</span></mat-list-item>
+        <mat-list-item><span><b>Hyperdrive Rating: </b>{{starship.hyperdrive_rating}}</span></mat-list-item>
+        <mat-list-item><span><b>Maximum number of Megalights: </b>{{starship.MGLT}}</span></mat-list-item>
+        <mat-list-item><span><b>Cargo Capacity: </b>{{starship.cargo_capacity}}</span></mat-list-item>
+        <mat-list-item><span><b>Consumbales: </b>{{starship.consumables}}</span></mat-list-item>
+    </mat-list>
+    <div *ngIf="pilots.length">
+        <h3>Pilots</h3>
+        <app-data-table [tableData]="pilots" [columns]="pilotsTableColumns"></app-data-table>
+    </div>
+    <div *ngIf="films.length">
+        <h3>Films</h3>
+        <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
+    </div>
+</div>
+<ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>
