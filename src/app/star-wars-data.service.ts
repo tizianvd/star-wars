@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Planet, Person, Film } from './interfaces';
-import { Observable, expand, EMPTY, catchError, map, tap, throwError  } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, expand, EMPTY, map  } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { withCache } from '@ngneat/cashew';
 
 
 export interface ListResponse<T> {
@@ -30,7 +30,7 @@ export class StarWarsDataService {
 
   
   getPage(field: string, page: number): Observable<any[]> {
-    return this.http.get<ListResponse<any>>(this.baseUrl + field + (page === 0 ? '/': `/?page=${page}`))
+    return this.http.get<ListResponse<any>>(this.baseUrl + field + (page === 0 ? '/': `/?page=${page}`), {context: withCache()})
       .pipe(map((data => data.results.map(record => {
             record.id = this.getIDFromURL(field, record.url);
             return record;
@@ -40,7 +40,7 @@ export class StarWarsDataService {
   }
 
   getRecord(field: string, id: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + field + `/${id}/`)
+    return this.http.get<any>(this.baseUrl + field + `/${id}/`, {context: withCache()})
     .pipe(map(response => {
               response.id = id
               return response
@@ -48,16 +48,16 @@ export class StarWarsDataService {
   }
 
   getRecordCount(field: string): Observable<number> {
-    return this.http.get<ListResponse<Person>>(this.baseUrl + field).pipe(
+    return this.http.get<ListResponse<any>>(this.baseUrl + field, {context: withCache()}).pipe(
       map((response) => {return response.count})
     );
   }
 
   getAllRecords(field: string): Observable<any[]> {
     
-    return this.http.get<ListResponse<any>>(this.baseUrl + field + "/?page=1")
+    return this.http.get<ListResponse<any>>(this.baseUrl + field + "/?page=1", {context: withCache()})
         .pipe(
-              expand(response => response.next ? this.http.get<ListResponse<any>>(response.next) : EMPTY),
+              expand(response => response.next ? this.http.get<ListResponse<any>>(response.next, {context: withCache()}) : EMPTY),
               map((data => data.results.map(record => {
               record.id = this.getIDFromURL(field, record.url)
               return record;

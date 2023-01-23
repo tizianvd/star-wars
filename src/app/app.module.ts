@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HttpCacheInterceptorModule, useHttpCacheLocalStorage  } from '@ngneat/cashew';
+
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { NavigationComponent } from './navigation/navigation.component';
@@ -34,6 +36,7 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
 import { VehicleDetailsComponent } from './vehicle-details/vehicle-details.component';
 import { StarshipsComponent } from './starships/starships.component';
 import { StarshipDetailsComponent } from './starship-details/starship-details.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,9 +73,10 @@ import { StarshipDetailsComponent } from './starship-details/starship-details.co
     MatMenuModule,
     MatTableModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpCacheInterceptorModule.forRoot()
   ],
-  providers: [],
+  providers: [useHttpCacheLocalStorage],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
