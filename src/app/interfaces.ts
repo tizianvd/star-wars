@@ -52,7 +52,7 @@ export interface Film extends IObjectKeys {
     url: string;
 }
 
-export interface Species {
+export interface Species extends IObjectKeys {
     id: number;
     name: string;
     classification: string;

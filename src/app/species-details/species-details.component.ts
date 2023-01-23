@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Species, Planet, Person, Film } from '../interfaces';
+import { Species, Planet, Person, Film, DataTableElement } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
 
@@ -11,17 +11,31 @@ import { StarWarsDataService } from '../star-wars-data.service';
 export class SpeciesDetailsComponent implements OnInit {
   species!: Species;
   homeworld?: Planet;
-  people: Person[] = [];
-  films: Film[] = [];
   loadedComponents: number = 0;
-  peopleTableColumns = {'id' : {name: 'ID'}, 
-  'name' : {name: 'Name'}, 
-  'url' : {name: 'Details', url:['/person/', 'id']}
-  };
-  filmsTableColumns = {'id' : {name: 'ID'}, 
-  'title' : {name: 'Title'}, 
-  'url' : {name: 'Details', url:['/film-details/', 'id']}
-  };
+  tables: DataTableElement[] =   [ 
+    {
+                                name : "People",
+                                field : "people",
+                                object_key : "people",
+                                data : [],
+                                pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                                columns : 
+                                        {'id' : {name: 'ID'}, 
+                                        'name' : {name: 'Name'}, 
+                                        'url' : {name: 'Details', url:['/person/', 'id']}}
+                },
+                {
+                                name : "Films",
+                                field : "films",
+                                object_key : "films",
+                                data: [],
+                                pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                                columns : 
+                                      {'id' : {name: 'ID'}, 
+                                      'title' : {name: 'Title'}, 
+                                      'url' : {name: 'Details', url:['/film-details/', 'id']}}
+                }
+  ]
 
   constructor(
     private dataService: StarWarsDataService,
@@ -35,8 +49,9 @@ export class SpeciesDetailsComponent implements OnInit {
         species => {
           this.species = species
           this.getHomeworld();
-          this.getData<Person>(this.species.people, this.people, "people");
-          this.getData<Film>(this.species.films, this.films, "films");
+          for (let table of this.tables) {
+            this.getData(table);
+          }
 
         }
       );
@@ -49,13 +64,14 @@ export class SpeciesDetailsComponent implements OnInit {
       })
     }
 
-    getData<T extends Person | Film>(list: T[], resultList: T[], field: string): void {
-      this.dataService.getAllRecords(field).subscribe({
+    getData(dataTable: DataTableElement): void {
+      this.dataService.getAllRecords(dataTable.field).subscribe({
         next: data => {
         data.forEach(element => {
-          if (list.includes(element.url)){
-            resultList.push(element);
-            resultList.sort((a: T, b: T) => a.id - b.id)
+          if (this.species[dataTable.object_key].includes(element.url)){
+            dataTable.data.push(element);
+            dataTable.data.sort((a: any, b: any) => a.id - b.id)
+            dataTable.pagination.length = dataTable.data.length
   
           }
         });
