@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Film, Person, Planet, Species, Starship } from '../interfaces';
+import { Film, Person, Planet, Species, Starship, Vehicle } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class FilmDetailsComponent implements OnInit {
   planets: Planet[] = [];
   species: Species[] = [];
   starships: Starship[] = [];
+  vehicles: Vehicle[] = [];
   loadedComponents: number = 0;
   characterPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
   charactersTableColumns = {'id' : {name: 'ID'}, 
@@ -35,6 +36,11 @@ export class FilmDetailsComponent implements OnInit {
                       'name' : {name: 'Name'}, 
                       'url' : {name: 'Details', url:['/starship-details/', 'id']}
   };
+  vehiclePagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  vehicleTableColumns = {'id' : {name: 'ID'}, 
+                      'name' : {name: 'Name'}, 
+                      'url' : {name: 'Details', url:['/vehicle-details/', 'id']}
+  };
   constructor(
     private route: ActivatedRoute,
     private dataService: StarWarsDataService
@@ -51,6 +57,7 @@ export class FilmDetailsComponent implements OnInit {
         this.getPlanets();
         this.getSpecies();
         this.getStarships();
+        this.getVehicles();
       }
     );
   }
@@ -116,6 +123,24 @@ export class FilmDetailsComponent implements OnInit {
           this.starships.push(element);
           this.starships.sort((a: Starship, b: Starship) => a.id - b.id)
           this.starshipPagination.length = this.starships.length;
+
+        }
+      });
+      
+    }, null, 
+    () => {
+      this.loadedComponents++;
+      }
+    );
+  }
+
+  getVehicles(): void {
+    this.dataService.getAllRecords("vehicles").subscribe(data => {
+      data.forEach(element => {
+        if (this.film.vehicles.includes(element.url)){
+          this.vehicles.push(element);
+          this.vehicles.sort((a: Vehicle, b: Vehicle) => a.id - b.id)
+          this.vehiclePagination.length = this.vehicles.length;
 
         }
       });
