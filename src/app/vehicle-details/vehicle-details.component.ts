@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VehicleDetailsComponent implements OnInit {
   vehicle!: Vehicle;
-  loaded: boolean = false;
+  loadedComponents: number = 0;
   pilots: Person[] = [];
   films: Film[] = [];
   pilotsTableColumns = {'id' : {name: 'ID'}, 
@@ -33,44 +33,26 @@ export class VehicleDetailsComponent implements OnInit {
     .subscribe(
       vehicle => {
         this.vehicle = vehicle
-        this.getPilots();
-        this.getFilms();
+        this.getData<Person>(this.vehicle.pilots, this.pilots, "people", "pilots");
+        this.getData<Film>(this.vehicle.films, this.films , "films", "films");
       }
     );
   }
 
-  getPilots(): void {
-    this.dataService.getAllRecords("people").subscribe({
+  getData<T extends Person | Film>(list: T[], resultList: T[], field: string, key: string): void {
+    this.dataService.getAllRecords(field).subscribe({
       next: data => {
       data.forEach(element => {
-        if (this.vehicle.pilots.includes(element.url)){
-          this.pilots.push(element);
-          this.pilots.sort((a: Person, b: Person) => a.id - b.id)
+        if (list.includes(element.url)){
+          resultList.push(element);
+          resultList.sort((a: T, b: T) => a.id - b.id)
 
         }
       });
       
       }, 
       complete: () => {
-        this.loaded = true;
-        }
-      });
-  }
-
-  getFilms(): void {
-    this.dataService.getAllRecords("films").subscribe({
-      next: data => {
-      data.forEach(element => {
-        if (this.vehicle.films.includes(element.url)){
-          this.films.push(element);
-          this.films.sort((a: Film, b: Film) => a.id - b.id)
-
-        }
-      });
-      
-      }, 
-      complete: () => {
-        this.loaded = true;
+        this.loadedComponents++;
         }
       });
   }
