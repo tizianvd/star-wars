@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Species, Planet, Person } from '../interfaces';
+import { Species, Planet, Person, Film } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
 
@@ -12,10 +12,15 @@ export class SpeciesDetailsComponent implements OnInit {
   species!: Species;
   homeworld?: Planet;
   people: Person[] = [];
+  films: Film[] = [];
   loaded: boolean = false;
   peopleTableColumns = {'id' : {name: 'ID'}, 
   'name' : {name: 'Name'}, 
   'url' : {name: 'Details', url:['/person/', 'id']}
+  };
+  filmsTableColumns = {'id' : {name: 'ID'}, 
+  'title' : {name: 'Title'}, 
+  'url' : {name: 'Details', url:['/film-details/', 'id']}
   };
 
   constructor(
@@ -31,6 +36,7 @@ export class SpeciesDetailsComponent implements OnInit {
           this.species = species
           this.getHomeworld();
           this.getPeople();
+          this.getFilms();
         }
       );
     }
@@ -49,6 +55,24 @@ export class SpeciesDetailsComponent implements OnInit {
           if (this.species.people.includes(element.url)){
             this.people.push(element);
             this.people.sort((a: Person, b: Person) => a.id - b.id)
+  
+          }
+        });
+        
+      }, 
+      complete: () => {
+        this.loaded = true;
+        }
+      });
+    }
+
+    getFilms(): void {
+      this.dataService.getAllRecords("films").subscribe({
+        next: data => {
+        data.forEach(element => {
+          if (this.species.films.includes(element.url)){
+            this.films.push(element);
+            this.films.sort((a: Film, b: Film) => a.id - b.id)
   
           }
         });

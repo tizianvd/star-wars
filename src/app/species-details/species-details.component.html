@@ -17,5 +17,9 @@
         <h3>People</h3>
         <app-data-table [tableData]="people" [columns]="peopleTableColumns"></app-data-table>
     </div>
+    <div *ngIf="films.length">
+        <h3>Films</h3>
+        <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
+    </div>
 </div>
 <ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>
