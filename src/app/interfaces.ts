@@ -60,8 +60,8 @@ export interface Species {
     average_lifespan: number;
     homeworld: string;
     language: string;
-    people: string[];
-    films: string[];
+    people: Person[];
+    films: Film[];
 }
 
 export interface Vehicle {

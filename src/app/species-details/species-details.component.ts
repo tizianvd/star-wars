@@ -13,7 +13,7 @@ export class SpeciesDetailsComponent implements OnInit {
   homeworld?: Planet;
   people: Person[] = [];
   films: Film[] = [];
-  loaded: boolean = false;
+  loadedComponents: number = 0;
   peopleTableColumns = {'id' : {name: 'ID'}, 
   'name' : {name: 'Name'}, 
   'url' : {name: 'Details', url:['/person/', 'id']}
@@ -35,8 +35,9 @@ export class SpeciesDetailsComponent implements OnInit {
         species => {
           this.species = species
           this.getHomeworld();
-          this.getPeople();
-          this.getFilms();
+          this.getData<Person>(this.species.people, this.people, "people");
+          this.getData<Film>(this.species.films, this.films, "films");
+
         }
       );
     }
@@ -48,40 +49,22 @@ export class SpeciesDetailsComponent implements OnInit {
       })
     }
 
-    getPeople(): void {
-      this.dataService.getAllRecords("people").subscribe({
+    getData<T extends Person | Film>(list: T[], resultList: T[], field: string): void {
+      this.dataService.getAllRecords(field).subscribe({
         next: data => {
         data.forEach(element => {
-          if (this.species.people.includes(element.url)){
-            this.people.push(element);
-            this.people.sort((a: Person, b: Person) => a.id - b.id)
+          if (list.includes(element.url)){
+            resultList.push(element);
+            resultList.sort((a: T, b: T) => a.id - b.id)
   
           }
         });
         
-      }, 
-      complete: () => {
-        this.loaded = true;
-        }
-      });
-    }
-
-    getFilms(): void {
-      this.dataService.getAllRecords("films").subscribe({
-        next: data => {
-        data.forEach(element => {
-          if (this.species.films.includes(element.url)){
-            this.films.push(element);
-            this.films.sort((a: Film, b: Film) => a.id - b.id)
-  
+        }, 
+        complete: () => {
+          this.loadedComponents++;
           }
         });
-        
-      }, 
-      complete: () => {
-        this.loaded = true;
-        }
-      });
     }
 
     ngOnInit(): void {
