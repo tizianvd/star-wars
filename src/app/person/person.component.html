@@ -11,20 +11,23 @@
         <mat-list-item><span><b>Homeworld: </b><a [routerLink]="'/planet-details/' + homeworld?.id">{{homeworld?.name}}</a></span></mat-list-item>
       
     </mat-list>
-    <div *ngIf="species.length">
-        <h3>Species</h3>
-        <app-data-table [tableData]="species" [columns]="speciesTableColumns"></app-data-table>
-    </div>
-    <div *ngIf="starships.length">
-        <h3>Starships</h3>
-        <app-data-table [tableData]="starships" [columns]="starshipsTableColumns"></app-data-table>
-    </div>
-    <div *ngIf="vehicles.length">
-        <h3>Vehicles</h3>
-        <app-data-table [tableData]="vehicles" [columns]="vehiclesTableColumns"></app-data-table>
-    </div>
-    <h3>Films</h3>
-    <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
-    
+    <mat-tab-group>
+        <mat-tab *ngIf="species.length" label="Species">
+            <h3>Species</h3>
+            <app-data-table [tableData]="species" [columns]="speciesTableColumns"></app-data-table>
+        </mat-tab>
+        <mat-tab label="Starships" *ngIf="starships.length">
+            <h3>Starships</h3>
+            <app-data-table [tableData]="starships" [columns]="starshipsTableColumns"></app-data-table>
+        </mat-tab>
+        <mat-tab label="Vehicles" *ngIf="vehicles.length">
+            <h3>Vehicles</h3>
+            <app-data-table [tableData]="vehicles" [columns]="vehiclesTableColumns"></app-data-table>
+        </mat-tab>
+        <mat-tab label="Films" *ngIf="films.length">
+             <h3>Films</h3>
+            <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
+        </mat-tab>
+    </mat-tab-group>
 </div>
 <ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>

@@ -11,13 +11,15 @@
         <mat-list-item><span><b>Surface Water:  </b>{{planet.surface_water == 1 ? 'Yes' : 'No'}}</span></mat-list-item>
         <mat-list-item><span><b>Population:  </b>{{planet.population}}</span></mat-list-item>
     </mat-list>
-    <div *ngIf="residents.length">
-        <h3>Residents</h3>
-        <app-data-table [tableData]="residents" [columns]="residentsTableColumns"></app-data-table>
-    </div>
-    <div *ngIf="films.length">
-        <h3>Films</h3>
-        <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
-    </div>
+    <mat-tab-group>
+        <mat-tab *ngIf="residents.length" label="Residents">
+            <h3>Residents</h3>
+            <app-data-table [tableData]="residents" [columns]="residentsTableColumns"></app-data-table>
+        </mat-tab>
+        <mat-tab *ngIf="films.length" label="Films">
+            <h3>Films</h3>
+            <app-data-table [tableData]="films" [columns]="filmsTableColumns"></app-data-table>
+        </mat-tab>
+    </mat-tab-group>
 </div>
 <ng-template #spinner><mat-spinner class="spinner"></mat-spinner></ng-template>
