@@ -1,4 +1,4 @@
-<div *ngIf="loaded;else spinner;">
+<div *ngIf="loadedComponents >= 2;else spinner;">
     <h1>{{starship.name}}</h1>
     <mat-list>
         <mat-list-item><span><b>Name: </b>{{starship.name}}</span></mat-list-item>

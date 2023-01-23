@@ -12,7 +12,7 @@ export class StarshipDetailsComponent {
   starship!: Starship;
   pilots: Person[] = [];
   films: Film[] = [];
-  loaded: boolean = false;
+  loadedComponents: number = 0;
   pilotsTableColumns = {'id' : {name: 'ID'}, 
   'name' : {name: 'Name'}, 
   'url' : {name: 'Details', url:['/person/', 'id']}
@@ -34,47 +34,30 @@ export class StarshipDetailsComponent {
     .subscribe(
       starship => {
         this.starship = starship
-        this.getPilots();
-        this.getFilms();
+        this.getData<Person>(this.starship.pilots, this.pilots, "people");
+        this.getData<Film>(this.starship.films, this.films , "films");
       }
     );
   }
 
-  getPilots(): void {
-    this.dataService.getAllRecords("people").subscribe({
+  getData<T extends Person | Film>(list: T[], resultList: T[], field: string): void {
+    this.dataService.getAllRecords(field).subscribe({
       next: data => {
       data.forEach(element => {
-        if (this.starship.pilots.includes(element.url)){
-          this.pilots.push(element);
-          this.pilots.sort((a: Person, b: Person) => a.id - b.id)
+        if (list.includes(element.url)){
+          resultList.push(element);
+          resultList.sort((a: T, b: T) => a.id - b.id)
 
         }
       });
       
       }, 
       complete: () => {
-        this.loaded = true;
+        this.loadedComponents++;
         }
       });
   }
 
-  getFilms(): void {
-    this.dataService.getAllRecords("films").subscribe({
-      next: data => {
-      data.forEach(element => {
-        if (this.starship.films.includes(element.url)){
-          this.films.push(element);
-          this.films.sort((a: Film, b: Film) => a.id - b.id)
-
-        }
-      });
-      
-      }, 
-      complete: () => {
-        this.loaded = true;
-        }
-      });
-  }
 
   ngOnInit(): void {
     this.getStarship();
