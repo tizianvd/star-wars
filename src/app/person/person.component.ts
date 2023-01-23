@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Person, Planet, Film, Species } from '../interfaces';
+import { Person, Planet, Film, Species, Starship, Vehicle } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { StarWarsDataService } from '../star-wars-data.service';
 
@@ -13,11 +13,21 @@ export class PersonComponent implements OnInit {
   person!: Person;
   films: Film[] = [];
   species: Species[] = [];
+  starships: Starship[] = [];
+  vehicles: Vehicle[] = [];
   homeworld?: Planet;
-  loaded: boolean = false;
+  loadedComponents: number = 0;
   speciesTableColumns = {'id' : {name: 'ID'}, 
                        'name' : {name: 'Name'}, 
                        'url' : {name: 'Details', url:['/species-details/', 'id']}
+  };
+  starshipsTableColumns = {'id' : {name: 'ID'}, 
+  'name' : {name: 'Name'}, 
+  'url' : {name: 'Details', url:['/starship-details/', 'id']}
+  };
+  vehiclesTableColumns = {'id' : {name: 'ID'}, 
+  'name' : {name: 'Name'}, 
+  'url' : {name: 'Details', url:['/vehicle-details/', 'id']}
   };
   filmsTableColumns = {'id' : {name: 'ID'}, 
                        'title' : {name: 'Title'}, 
@@ -38,6 +48,8 @@ export class PersonComponent implements OnInit {
         this.getHomeworld();
         this.getFilms();
         this.getSpecies();
+        this.getStarships();
+        this.getVehicles();
       }
     );
   }
@@ -74,7 +86,43 @@ export class PersonComponent implements OnInit {
       
       }, 
       complete: () => {
-        this.loaded = true;
+        this.loadedComponents++;
+        }
+      });
+  }
+
+  getStarships(): void {
+    this.dataService.getAllRecords("starships").subscribe({
+      next: data => {
+      data.forEach(element => {
+        if (this.person.starships.includes(element.url)){
+          this.starships.push(element);
+          this.starships.sort((a: Starship, b: Starship) => a.id - b.id)
+
+        }
+      });
+      
+      }, 
+      complete: () => {
+        this.loadedComponents++;
+        }
+      });
+  }
+
+  getVehicles(): void {
+    this.dataService.getAllRecords("vehicles").subscribe({
+      next: data => {
+      data.forEach(element => {
+        if (this.person.vehicles.includes(element.url)){
+          this.vehicles.push(element);
+          this.vehicles.sort((a: Vehicle, b: Vehicle) => a.id - b.id)
+
+        }
+      });
+      
+      }, 
+      complete: () => {
+        this.loadedComponents++;
         }
       });
   }

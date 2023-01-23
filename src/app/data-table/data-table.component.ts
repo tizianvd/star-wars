@@ -25,12 +25,14 @@ export class DataTableComponent implements OnChanges {
     this.dataSource = new MatTableDataSource(this.pagination && this.pagination.pageSize > 0 ? this.tableData.slice(this.pagination.currentPage * this.pagination.pageSize, (this.pagination.currentPage + 1) * this.pagination.pageSize) : this.tableData);
   }
   ngOnChanges() {
-    if (this.pagination && !this.pagination.currentPage) {
-      this.pagination.currentPage = 0;
+    if (this.pagination) {
+      if (!this.pagination.currentPage) {
+        this.pagination.currentPage = 0;
+      }
+      this.pagination.paginatorEnabled = true
     }
 
-    this.reloadData();
-    this.pagination.paginatorEnabled = true
+    this.reloadData()
   }
 
   handlePageEvent(event: PageEvent) {

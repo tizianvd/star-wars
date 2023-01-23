@@ -26,6 +26,8 @@ export interface Person {
     homeworld: string;
     films: string[];
     species: string[];
+    starships: Starship[];
+    vehicles: Vehicle[];
     url: string;
 }
 
