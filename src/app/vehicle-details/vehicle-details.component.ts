@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vehicle, Film, Person } from '../interfaces';
+import { Vehicle, Film, Person, DataTableElement } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -11,16 +11,30 @@ import { ActivatedRoute } from '@angular/router';
 export class VehicleDetailsComponent implements OnInit {
   vehicle!: Vehicle;
   loadedComponents: number = 0;
-  pilots: Person[] = [];
-  films: Film[] = [];
-  pilotsTableColumns = {'id' : {name: 'ID'}, 
-  'name' : {name: 'Name'}, 
-  'url' : {name: 'Details', url:['/person/', 'id']}
-  };
-  filmsTableColumns = {'id' : {name: 'ID'}, 
-  'title' : {name: 'Title'}, 
-  'url' : {name: 'Details', url:['/film-details/', 'id']}
-  };
+  tables: DataTableElement[] =   [ 
+    {
+                                name : "Pilots",
+                                field : "people",
+                                object_key : "pilots",
+                                data : [],
+                                pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                                columns : 
+                                        {'id' : {name: 'ID'}, 
+                                        'name' : {name: 'Name'}, 
+                                        'url' : {name: 'Details', url:['/person/', 'id']}}
+                },
+                {
+                                name : "Films",
+                                field : "films",
+                                object_key : "films",
+                                data: [],
+                                pagination : {length: 0, paginatorEnabled: true, pageSize: 5},
+                                columns : 
+                                      {'id' : {name: 'ID'}, 
+                                      'title' : {name: 'Title'}, 
+                                      'url' : {name: 'Details', url:['/film-details/', 'id']}}
+                }
+  ]
 
   constructor(
     private dataService: StarWarsDataService,
@@ -33,19 +47,21 @@ export class VehicleDetailsComponent implements OnInit {
     .subscribe(
       vehicle => {
         this.vehicle = vehicle
-        this.getData<Person>(this.vehicle.pilots, this.pilots, "people");
-        this.getData<Film>(this.vehicle.films, this.films , "films");
+        for (let table of this.tables) {
+          this.getData(table);
+        }
       }
     );
   }
 
-  getData<T extends Person | Film>(list: T[], resultList: T[], field: string): void {
-    this.dataService.getAllRecords(field).subscribe({
+  getData(dataTable: DataTableElement): void {
+    this.dataService.getAllRecords(dataTable.field).subscribe({
       next: data => {
       data.forEach(element => {
-        if (list.includes(element.url)){
-          resultList.push(element);
-          resultList.sort((a: T, b: T) => a.id - b.id)
+        if (this.vehicle[dataTable.object_key].includes(element.url)){
+          dataTable.data.push(element);
+          dataTable.data.sort((a: any, b: any) => a.id - b.id)
+          dataTable.pagination.length = dataTable.data.length
 
         }
       });

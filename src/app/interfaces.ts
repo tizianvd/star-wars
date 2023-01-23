@@ -68,7 +68,7 @@ export interface Species extends IObjectKeys {
     films: Film[];
 }
 
-export interface Vehicle {
+export interface Vehicle extends IObjectKeys {
     id: number;
     name: string;
     model: string;
