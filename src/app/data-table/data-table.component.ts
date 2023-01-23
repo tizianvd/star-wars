@@ -8,11 +8,13 @@ import { MatTable } from '@angular/material/table';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
+
 export class DataTableComponent implements OnChanges {
   @Input() tableData: any;
   @Input() columns: any;
   @Input() pagination: any;
   @Input() isStatic: boolean = false;
+  @Input() addEmptyRows: boolean = false;
 
   @Output() pageEvent = new EventEmitter;
 
@@ -22,6 +24,11 @@ export class DataTableComponent implements OnChanges {
   objectKeys = Object.keys;
 
   reloadData() {
+    if (this.addEmptyRows) {
+      for (let i = 0; i <= this.pagination.length % this.pagination.pageSize; i++) {
+        this.tableData.push(Object.create(null))
+      }
+    }
     this.dataSource = new MatTableDataSource(this.pagination && this.pagination.pageSize > 0 ? this.tableData.slice(this.pagination.currentPage * this.pagination.pageSize, (this.pagination.currentPage + 1) * this.pagination.pageSize) : this.tableData);
   }
   ngOnChanges() {

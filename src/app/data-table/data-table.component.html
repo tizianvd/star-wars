@@ -2,7 +2,7 @@
     <ng-container [matColumnDef]="tableData" *ngFor="let tableData of objectKeys(columns)">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[tableData].name}}    </th>
         <ng-template  [ngIf]="columns[tableData].url !== undefined" [ngIfElse]="noUrl">
-            <td mat-cell *matCellDef="let element"> <a routerLink="{{columns[tableData].url[0]}}{{element[columns[tableData].url[1]]}}"><mat-icon aria-hidden="false" aria-label="open url icon" fontIcon="link"></mat-icon></a></td>
+            <td mat-cell *matCellDef="let element"> <a routerLink="{{columns[tableData].url[0]}}{{element[columns[tableData].url[1]]}}"><mat-icon *ngIf="element[columns[tableData].url[1]] != null" aria-hidden="false" aria-label="open url icon" fontIcon="link"></mat-icon></a></td>
         </ng-template >
         <ng-template #noUrl>
             <td mat-cell *matCellDef="let element">{{element[tableData]}}</td>

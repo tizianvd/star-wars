@@ -1,5 +1,9 @@
 
-export interface Planet {
+interface IObjectKeys {
+    [key: string]: string | number | any;
+  }
+
+export interface Planet extends IObjectKeys {
     id: number;
     name: string;
     rotation_period: number,
@@ -99,3 +103,19 @@ export interface Starship {
     films: Film[];
     pilots: Person[]
 }
+
+export interface DataTablePagination {
+    length: number;
+    pageSize: number;
+    paginatorEnabled: boolean;
+}
+
+export interface DataTableElement {
+    name: string;
+    field: string;
+    object_key: string;
+    data: any[];
+    pagination: DataTablePagination;
+    columns: Object;
+}
+  
