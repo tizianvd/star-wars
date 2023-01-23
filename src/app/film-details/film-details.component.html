@@ -1,4 +1,4 @@
-<div *ngIf="loaded;else spinner;">
+<div *ngIf="loadedComponents == 4;else spinner;">
     <h1>{{film.title}}</h1>
     <mat-list>
         <mat-list-item><b>Title: </b> {{film.title}}</mat-list-item>
@@ -27,6 +27,11 @@
     <div *ngIf="species.length">
         <h3>Species</h3>
         <app-data-table [tableData]="species" [columns]="speciesTableColumns" [pagination]="speciesPagination" [isStatic]="true"></app-data-table>
+    </div>
+
+    <div *ngIf="starships.length">
+        <h3>Starships</h3>
+        <app-data-table [tableData]="starships" [columns]="starshipTableColumns" [pagination]="starshipPagination" [isStatic]="true"></app-data-table>
     </div>
     
 </div>

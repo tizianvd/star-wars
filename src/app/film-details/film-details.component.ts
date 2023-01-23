@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Film, Person, Planet, Species } from '../interfaces';
+import { Film, Person, Planet, Species, Starship } from '../interfaces';
 import { StarWarsDataService } from '../star-wars-data.service';
 
 @Component({
@@ -13,7 +13,8 @@ export class FilmDetailsComponent implements OnInit {
   characters: Person[] = [];
   planets: Planet[] = [];
   species: Species[] = [];
-  loaded: boolean = false;
+  starships: Starship[] = [];
+  loadedComponents: number = 0;
   characterPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
   charactersTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
@@ -22,12 +23,17 @@ export class FilmDetailsComponent implements OnInit {
   planetPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
   planetTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
-                      'url' : {name: 'Details', url:['/planet/', 'id']}
+                      'url' : {name: 'Details', url:['/planet-details/', 'id']}
   };
   speciesPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
   speciesTableColumns = {'id' : {name: 'ID'}, 
                       'name' : {name: 'Name'}, 
-                      'url' : {name: 'Details', url:['/species/', 'id']}
+                      'url' : {name: 'Details', url:['/species-details/', 'id']}
+  };
+  starshipPagination = {length: 0, paginatorEnabled: true, pageSize: 10};
+  starshipTableColumns = {'id' : {name: 'ID'}, 
+                      'name' : {name: 'Name'}, 
+                      'url' : {name: 'Details', url:['/starship-details/', 'id']}
   };
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +50,7 @@ export class FilmDetailsComponent implements OnInit {
         this.getCharacters();
         this.getPlanets();
         this.getSpecies();
+        this.getStarships();
       }
     );
   }
@@ -61,7 +68,7 @@ export class FilmDetailsComponent implements OnInit {
       
     }, null, 
     () => {
-      this.loaded = true;
+      this.loadedComponents++;
       }
     );
   }
@@ -79,7 +86,7 @@ export class FilmDetailsComponent implements OnInit {
       
     }, null, 
     () => {
-      this.loaded = true;
+      this.loadedComponents++;
       }
     );
   }
@@ -97,7 +104,25 @@ export class FilmDetailsComponent implements OnInit {
       
     }, null, 
     () => {
-      this.loaded = true;
+      this.loadedComponents++;
+      }
+    );
+  }
+
+  getStarships(): void {
+    this.dataService.getAllRecords("starships").subscribe(data => {
+      data.forEach(element => {
+        if (this.film.starships.includes(element.url)){
+          this.starships.push(element);
+          this.starships.sort((a: Starship, b: Starship) => a.id - b.id)
+          this.starshipPagination.length = this.starships.length;
+
+        }
+      });
+      
+    }, null, 
+    () => {
+      this.loadedComponents++;
       }
     );
   }
