@@ -36,7 +36,7 @@ export interface Person {
     url: string;
 }
 
-export interface Film {
+export interface Film extends IObjectKeys {
     id: number;
     title: string;
     episode_id: number;
