@@ -46,10 +46,11 @@ export class PersonComponent implements OnInit {
       person => {
         this.person = person
         this.getHomeworld();
-        this.getFilms();
-        this.getSpecies();
-        this.getStarships();
-        this.getVehicles();
+        this.getData<Species>(this.person.species, this.species, "species");
+        this.getData<Starship>(this.person.starships, this.starships, "starships");
+        this.getData<Vehicle>(this.person.vehicles, this.vehicles, "vehicles");
+        this.getData<Film>(this.person.films, this.films, "films");
+
       }
     );
   }
@@ -59,63 +60,13 @@ export class PersonComponent implements OnInit {
     .subscribe(planet => this.homeworld = planet)
   }
 
-  getFilms(): void {
-    this.dataService.getAllRecords("films").subscribe({
+  getData<T extends Species | Starship | Vehicle | Film>(list: T[], resultList: T[], field: string): void {
+    this.dataService.getAllRecords(field).subscribe({
       next: data => {
       data.forEach(element => {
-        if (this.person.films.includes(element.url)){
-          this.films.push(element);
-          this.films.sort((a: Film, b: Film) => a.id - b.id)
-
-        }
-      });
-      }
-      });
-  }
-
-  getSpecies(): void {
-    this.dataService.getAllRecords("species").subscribe({
-      next: data => {
-      data.forEach(element => {
-        if (this.person.species.includes(element.url)){
-          this.species.push(element);
-          this.species.sort((a: Species, b: Species) => a.id - b.id)
-
-        }
-      });
-      
-      }, 
-      complete: () => {
-        this.loadedComponents++;
-        }
-      });
-  }
-
-  getStarships(): void {
-    this.dataService.getAllRecords("starships").subscribe({
-      next: data => {
-      data.forEach(element => {
-        if (this.person.starships.includes(element.url)){
-          this.starships.push(element);
-          this.starships.sort((a: Starship, b: Starship) => a.id - b.id)
-
-        }
-      });
-      
-      }, 
-      complete: () => {
-        this.loadedComponents++;
-        }
-      });
-  }
-
-  getVehicles(): void {
-    this.dataService.getAllRecords("vehicles").subscribe({
-      next: data => {
-      data.forEach(element => {
-        if (this.person.vehicles.includes(element.url)){
-          this.vehicles.push(element);
-          this.vehicles.sort((a: Vehicle, b: Vehicle) => a.id - b.id)
+        if (list.includes(element.url)){
+          resultList.push(element);
+          resultList.sort((a: T, b: T) => a.id - b.id)
 
         }
       });
